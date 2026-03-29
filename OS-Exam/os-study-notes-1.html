@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OS Exam Notes — 300L IT</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #f5f2eb;
+  --surface: #edeae0;
+  --surface2: #e4e0d4;
+  --border: #ccc8bc;
+  --accent: #c0392b;
+  --accent2: #1a472a;
+  --ink: #1a1a15;
+  --muted: #6b6860;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'IBM Plex Sans', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 14.5px; line-height: 1.75; }
+header { background: var(--ink); color: var(--bg); padding: 20px 24px; position: sticky; top: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+header h1 { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.hbadge { font-family: var(--mono); font-size: 10px; background: var(--accent); color: #fff; padding: 3px 10px; letter-spacing: 0.1em; }
+nav { background: var(--surface); border-bottom: 2px solid var(--ink); padding: 0 24px; display: flex; overflow-x: auto; gap: 0; }
+nav a { font-family: var(--mono); font-size: 11px; text-decoration: none; color: var(--muted); padding: 12px 14px; white-space: nowrap; border-right: 1px solid var(--border); transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.06em; }
+nav a:hover { background: var(--ink); color: var(--bg); }
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+.ch-header { margin-top: 52px; padding: 24px 0 16px; border-top: 3px solid var(--ink); }
+.ch-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); margin-bottom: 6px; }
+h2 { font-family: var(--mono); font-size: 20px; font-weight: 700; line-height: 1.2; }
+.sec { margin-top: 28px; }
+h3 { font-family: var(--mono); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent2); margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.def { background: var(--ink); color: var(--bg); padding: 14px 18px; margin: 12px 0; font-size: 13.5px; line-height: 1.7; }
+.def strong { font-family: var(--mono); font-size: 10px; display: block; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.15em; text-transform: uppercase; }
+.hl { border-left: 4px solid var(--accent); background: var(--surface2); padding: 10px 16px; margin: 12px 0; font-size: 13px; color: var(--ink); font-family: var(--mono); }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:580px){ .g2 { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); padding: 14px; }
+.card h4 { font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px; }
+ul { list-style: none; margin: 8px 0 14px; }
+ul li { padding: 5px 0 5px 18px; position: relative; color: #2a2a22; border-bottom: 1px solid #e0ddd3; font-size: 14px; }
+ul li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 10px; top: 8px; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+th { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--ink); color: var(--bg); padding: 9px 12px; text-align: left; }
+td { padding: 8px 12px; border: 1px solid var(--border); color: #2a2a22; vertical-align: top; }
+tr:nth-child(even) td { background: var(--surface); }
+.qa-wrap { margin-top: 8px; }
+.qa { border: 1px solid var(--border); margin-bottom: 6px; overflow: hidden; }
+.q { padding: 12px 16px; background: var(--surface2); cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; font-family: var(--mono); font-size: 12.5px; color: var(--ink); line-height: 1.5; }
+.qtag { font-size: 9px; color: var(--accent); display: block; margin-bottom: 3px; letter-spacing: 0.15em; text-transform: uppercase; }
+.q-icon { flex-shrink: 0; width: 22px; height: 22px; background: var(--ink); color: var(--bg); display: flex; align-items: center; justify-content: center; font-size: 16px; margin-top: 2px; font-family: var(--mono); }
+.a { display: none; padding: 14px 16px; background: #fff; border-top: 1px solid var(--border); font-size: 13.5px; line-height: 1.8; color: #1a1a15; }
+.a ul { margin: 8px 0; }
+.a strong { color: var(--accent2); }
+.qa.open .a { display: block; }
+.qa.open .q-icon::after { content: '−'; }
+.q-icon::after { content: '+'; }
+p { color: #2e2e26; margin-bottom: 10px; font-size: 14px; }
+.tag { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; margin: 2px; text-transform: uppercase; letter-spacing: 0.08em; }
+.tag.r { background: #fde; color: var(--accent); border: 1px solid var(--accent); }
+.tag.g { background: #dfd; color: var(--accent2); border: 1px solid var(--accent2); }
+.notice { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: center; padding: 32px 0 0; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Operating Systems — Complete Exam Notes</h1>
+  <span class="hbadge">300L · IT · Tuesday</span>
+</header>
+
+<nav>
+  <a href="#ch1">Ch.1 Intro</a>
+  <a href="#ch2">Ch.2 Processes</a>
+  <a href="#ch3">Ch.3 Deadlock</a>
+  <a href="#ch4">Ch.4 Memory-Early</a>
+  <a href="#ch5">Ch.5 Memory-Recent</a>
+  <a href="#ch6">Ch.6 DOS</a>
+  <a href="#ch7">Ch.7 Unix</a>
+  <a href="#ch8">Ch.8 Linux</a>
+  <a href="#qa">Q&amp;A</a>
+</nav>
+
+<div class="wrap">
+
+<!-- CHAPTER 1 -->
+<div id="ch1">
+  <div class="ch-header">
+    <div class="ch-label">Chapter One</div>
+    <h2>Introduction to Operating Systems</h2>
+  </div>
+
+  <div class="sec">
+    <h3>1.0 — Two Definitions</h3>
+    <div class="def"><strong>Definition 1 — Program View</strong>An OS is an elaborate set of programs developed by a programmer to control all operations within the computer, to such an extent that it does not require any human intervention. Three phases: Input → Process → Output.</div>
+    <div class="def"><strong>Definition 2 — Hardware View</strong>An OS is an Input Unit that translates tools to work with into the Computer (RAM = Random Access Memory, ROM = Read Only Memory). When you boot, ROM calls the OS, editors, compilers, assemblers, and interpreters.</div>
+  </div>
+
+  <div class="sec">
+    <h3>1.1 — Four Components of an OS</h3>
+    <div class="g2">
+      <div class="card"><h4>Memory Manager</h4><p>Tracks, allocates, and de-allocates all memory. Ensures programs get what they need.</p></div>
+      <div class="card"><h4>Processor Manager</h4><p>Manages CPU time. Schedules which process runs and for how long.</p></div>
+      <div class="card"><h4>Device Manager</h4><p>Manages all I/O hardware (printers, disks, keyboards) via device drivers.</p></div>
+      <div class="card"><h4>File Manager</h4><p>Handles file creation, deletion, reading, writing, and access permissions.</p></div>
+    </div>
+
+    <h3>OS Functions — 4 Key Points</h3>
+    <ul>
+      <li>Keep track of the status of each resource (in use / free)</li>
+      <li>Monitor resources continuously</li>
+      <li>Enforce policies — who gets what resource</li>
+      <li>Allocate and de-allocate (reclaim) resources when appropriate</li>
+    </ul>
+
+    <h3>Key Concepts</h3>
+    <table>
+      <tr><th>Term</th><th>Meaning</th></tr>
+      <tr><td>Batch</td><td>"Group" — jobs submitted together; system processes without user interaction</td></tr>
+      <tr><td>Multi-programming</td><td>Two or more programs loaded in memory; CPU switches when one waits for I/O</td></tr>
+      <tr><td>Multi-processing</td><td>Two or more CPUs working together on jobs — true parallel execution</td></tr>
+      <tr><td>Multi-tasking</td><td>Rapid switching between tasks giving illusion of simultaneous execution</td></tr>
+      <tr><td>CLI</td><td>Command Line Interface — text-based</td></tr>
+      <tr><td>GUI</td><td>Graphical User Interface — icons and windows</td></tr>
+    </table>
+
+    <h3>Types of OS</h3>
+    <table>
+      <tr><th>OS</th><th>Full Name</th><th>Key Feature</th></tr>
+      <tr><td>DOS</td><td>Disk Operating System</td><td>Single-user, command-line, simple</td></tr>
+      <tr><td>Unix (UOS)</td><td>Unix Operating System</td><td>Multi-user, multi-tasking</td></tr>
+      <tr><td>Linux (LOS)</td><td>Linux Operating System</td><td>Open-source; advanced security over DOS and Unix</td></tr>
+    </table>
+
+    <div class="hl">Boot Sequence: ROM → loads OS into RAM → editors, compilers, assemblers, interpreters become available → cursor moves to RAM (pointer changes).</div>
+  </div>
+</div>
+
+<!-- CHAPTER 2 -->
+<div id="ch2">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Two</div>
+    <h2>Processes and Synchronization</h2>
+  </div>
+
+  <div class="sec">
+    <h3>2.1 — What is a Process?</h3>
+    <div class="def"><strong>Definition</strong>A process is a program in execution. It is a unit of work that requires resources — CPU time, memory, files, I/O devices — to accomplish its task. A program is passive (code on disk); a process is active (program + execution context).</div>
+
+    <h3>Five Process States</h3>
+    <table>
+      <tr><th>State</th><th>Description</th></tr>
+      <tr><td>New</td><td>Process is being created</td></tr>
+      <tr><td>Ready</td><td>Waiting to be assigned to CPU</td></tr>
+      <tr><td>Running</td><td>Instructions are being executed</td></tr>
+      <tr><td>Waiting</td><td>Waiting for an event (e.g. I/O completion)</td></tr>
+      <tr><td>Terminated</td><td>Process has finished execution</td></tr>
+    </table>
+
+    <h3>Process Control Block (PCB)</h3>
+    <p>The OS maintains a PCB for each process containing: process state, program counter, CPU registers, scheduling info, memory management info, accounting info, and I/O status info.</p>
+  </div>
+
+  <div class="sec">
+    <h3>2.2.2 — Suspend and Resume</h3>
+    <div class="def"><strong>Suspend</strong>A process is moved out of main memory to secondary storage (disk) to free RAM. It cannot proceed until resumed. Resume = bring it back from disk to memory and continue execution.</div>
+    <ul>
+      <li>Suspended processes are NOT in the ready queue</li>
+      <li>Caused by: memory overload, long wait, higher-priority process needs memory</li>
+      <li>Process retains its state — resumes exactly where it was suspended</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>2.2.3 — Interrupt Processing</h3>
+    <div class="def"><strong>Definition</strong>An interrupt is a signal causing the CPU to suspend its current task, save its state, and handle a higher-priority event via an Interrupt Service Routine (ISR). "Another word for interrupt is After."</div>
+    <table>
+      <tr><th>Type</th><th>Cause / Example</th></tr>
+      <tr><td>Program Interrupt</td><td>Software error — e.g. dividing any number by ZERO</td></tr>
+      <tr><td>Timer Interrupt</td><td>System clock triggers → CMOS Battery</td></tr>
+      <tr><td>I/O Interrupt</td><td>I/O device completes or needs attention</td></tr>
+      <tr><td>Hardware Failure</td><td>Hardware component fails — power, memory error</td></tr>
+    </table>
+    <div class="hl">EXAM FACT: Dividing any number by zero = Program Interrupt!</div>
+  </div>
+
+  <div class="sec">
+    <h3>2.3 — The Nucleus (Kernel) of the OS</h3>
+    <div class="def"><strong>Nucleus / Kernel</strong>The core of the OS — runs with highest privilege, directly on hardware. Always resident in RAM (never swapped). Manages interrupt handling, process scheduling, and memory management.</div>
+
+    <h3>2.5 — The Hierarchical Machine Concept</h3>
+    <table>
+      <tr><th>Layer</th><th>Component</th><th>Function</th></tr>
+      <tr><td>Bottom</td><td>Hardware</td><td>Physical CPU, memory, I/O devices</td></tr>
+      <tr><td>2</td><td>Kernel</td><td>Interrupt handling, scheduling, I/O</td></tr>
+      <tr><td>3</td><td>OS Services</td><td>File system, memory management</td></tr>
+      <tr><td>Top</td><td>User Interface</td><td>CLI / GUI — user-facing programs</td></tr>
+    </table>
+  </div>
+
+  <div class="sec">
+    <h3>2.6 — Concurrent Processes</h3>
+    <div class="def"><strong>Concurrency</strong>Two or more processes execute overlapping in time. On single-CPU: rapid context-switching (illusion of parallelism). On multi-CPU: true parallel execution. Concurrency requires synchronization.</div>
+    <ul>
+      <li><strong>Race Condition:</strong> Outcome depends on the order concurrent processes access shared data — unpredictable, a bug</li>
+      <li><strong>Critical Section:</strong> Code that accesses shared resources; must NOT execute in more than one process at a time</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>2.7.1 — Semaphores</h3>
+    <div class="def"><strong>Semaphore</strong>A synchronization tool (Dijkstra). An integer variable accessed only through two atomic operations: wait(S) — decrement S, block if S&lt;0; and signal(S) — increment S, wake a waiting process.</div>
+    <div class="g2">
+      <div class="card"><h4>Binary Semaphore</h4><p>Value = 0 or 1. Used as a mutex lock — ensures only one process in critical section at a time.</p></div>
+      <div class="card"><h4>Counting Semaphore</h4><p>Value = 0 to N. Controls access to a pool of N identical resources.</p></div>
+    </div>
+
+    <h3>2.7.2 — Monitors</h3>
+    <div class="def"><strong>Monitor</strong>A high-level synchronization construct — a module encapsulating shared data and the procedures operating on it. Only ONE process active inside at a time (automatic mutual exclusion). Uses condition variables with wait() and signal().</div>
+    <ul>
+      <li>Safer and easier to use than semaphores</li>
+      <li>Developed by Hoare and Hansen</li>
+      <li>Used in Java's <em>synchronized</em> keyword</li>
+    </ul>
+
+    <h3>2.7.3 — Dining Philosophers Problem</h3>
+    <div class="def"><strong>Problem</strong>5 philosophers at a round table alternate between thinking and eating. One fork between each pair (5 forks). Eating requires BOTH left AND right forks. If all grab left fork simultaneously → circular wait → deadlock. No one eats.</div>
+    <ul>
+      <li>Illustrates: deadlock (circular wait) and starvation</li>
+      <li><strong>Solution 1:</strong> Allow only 4 philosophers at the table at once</li>
+      <li><strong>Solution 2:</strong> Asymmetric — odd philosophers take left fork first, even take right fork first</li>
+      <li><strong>Solution 3:</strong> Only allow picking up forks when BOTH are available simultaneously</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CHAPTER 3 -->
+<div id="ch3">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Three</div>
+    <h2>Deadlock &amp; Storage Management</h2>
+  </div>
+
+  <div class="sec">
+    <h3>3.1 — Deadlock Occurrence</h3>
+    <div class="def"><strong>Definition</strong>A deadlock is a situation where a group of processes are permanently blocked — each holds some resources and waits for resources held by others — making it impossible for any process to proceed to completion.</div>
+
+    <h3>Five Necessary Conditions (ALL must hold)</h3>
+    <ul>
+      <li><strong>Mutual Exclusion</strong> — Only one process can use a resource at a time</li>
+      <li><strong>Hold and Wait</strong> — A process holds resources while waiting to acquire more</li>
+      <li><strong>No Preemption</strong> — Resources cannot be forcibly taken; only voluntarily released</li>
+      <li><strong>Circular Wait</strong> — P0 waits for P1, P1 waits for P2, …Pn waits for P0</li>
+      <li><strong>Irreversibility</strong> — System cannot self-resolve; deadlock is permanent without intervention</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>3.2.1 — Deadlock Prevention</h3>
+    <p>Structurally eliminate at least one of the four necessary conditions before deadlock can occur.</p>
+    <table>
+      <tr><th>Condition to Eliminate</th><th>How</th></tr>
+      <tr><td>Mutual Exclusion</td><td>Make resources shareable (only works for some resources like read-only files)</td></tr>
+      <tr><td>Hold and Wait</td><td>Require process to request ALL resources at once before starting</td></tr>
+      <tr><td>No Preemption</td><td>If a process can't get resources, preempt its current resources</td></tr>
+      <tr><td>Circular Wait</td><td>Impose total ordering on resources; processes must request in order</td></tr>
+    </table>
+
+    <h3>3.2.2 — Deadlock Avoidance: Banker's Algorithm</h3>
+    <div class="def"><strong>Banker's Algorithm</strong>Before granting a resource request, simulate the allocation and check if the system remains in a Safe State. Key formula: Need = Maximum Required − Currently Allocated. If Need ≤ Available → process can proceed.</div>
+    <div class="g2">
+      <div class="card"><h4>Safe State</h4><p>At least one process can run to completion, release resources, allowing others to proceed. System can satisfy all future requests.</p></div>
+      <div class="card"><h4>Unsafe State</h4><p>No process can complete with available resources. Does NOT necessarily mean deadlock — but could lead to it.</p></div>
+    </div>
+    <p><strong>Worked Example:</strong></p>
+    <table>
+      <tr><th>Process</th><th>Allocated</th><th>Maximum</th><th>Need (Max−Alloc)</th></tr>
+      <tr><td>P1</td><td>5</td><td>7</td><td>2</td></tr>
+      <tr><td>P2</td><td>9</td><td>11</td><td>2</td></tr>
+      <tr><td>P3</td><td>4</td><td>8</td><td>4</td></tr>
+      <tr><td colspan="3">Available = 2 units</td><td></td></tr>
+    </table>
+    <p>P1 needs 2 ≤ 2 ✓ → P1 runs, finishes, returns 5+2=7 → Available = 9 → P2 needs 2 ✓ → P2 finishes → P3 needs 4 ✓. Safe sequence: P1→P2→P3. <span class="tag g">SAFE STATE</span></p>
+
+    <h3>3.2.3 — Deadlock Detection</h3>
+    <ul>
+      <li>Allow deadlock to occur, then detect it</li>
+      <li>Use <strong>Resource Allocation Graph</strong> — if it has a cycle → possible deadlock</li>
+      <li>Use <strong>Wait-for Graph</strong> — edges show which process waits for which</li>
+      <li>Run detection algorithm periodically to find deadlocked processes</li>
+    </ul>
+
+    <h3>3.2.4 — Deadlock Recovery</h3>
+    <ul>
+      <li><strong>Process Termination:</strong> Abort all deadlocked processes (drastic), OR abort one at a time until cycle is broken (costly)</li>
+      <li><strong>Resource Preemption:</strong> Forcibly take resources from some processes and give to others. Need to handle rollback — return preempted process to safe state.</li>
+    </ul>
+  </div>
+
+  <div class="sec">
+    <h3>3.3 — Storage Management</h3>
+    <h3>3.3.2 — Storage Hierarchy</h3>
+    <table>
+      <tr><th>Level</th><th>Type</th><th>Speed</th><th>Size</th></tr>
+      <tr><td>1 (fastest)</td><td>Registers / CPU Cache</td><td>Nanoseconds</td><td>Kilobytes</td></tr>
+      <tr><td>2</td><td>Main Memory (RAM)</td><td>~100ns</td><td>Gigabytes</td></tr>
+      <tr><td>3</td><td>Secondary Storage (HDD/SSD)</td><td>Milliseconds</td><td>Terabytes</td></tr>
+      <tr><td>4 (slowest)</td><td>Tertiary (Tape/Optical)</td><td>Seconds</td><td>Petabytes</td></tr>
+    </table>
+
+    <h3>3.3.3/3.3.4 — Storage Placement Strategies</h3>
+    <div class="g2">
+      <div class="card"><h4>First Fit</h4><p>Allocate the FIRST hole large enough. Fast. May leave small unusable fragments at start.</p></div>
+      <div class="card"><h4>Best Fit</h4><p>Allocate the SMALLEST hole large enough. Minimizes waste but must search entire list.</p></div>
+      <div class="card"><h4>Worst Fit</h4><p>Allocate the LARGEST hole. Leaves biggest remaining fragment for future requests.</p></div>
+      <div class="card"><h4>Next Fit</h4><p>Like First Fit but starts from last allocation point — more uniform distribution.</p></div>
+    </div>
+
+    <h3>3.3.5 — Virtual Storage (Virtual Memory)</h3>
+    <div class="def"><strong>Virtual Memory</strong>A technique allowing processes to execute even when NOT completely in main memory. Active pages are in RAM; the rest on disk. The OS swaps pages in/out as needed — giving the illusion of more memory than physically exists.</div>
+    <ul>
+      <li>Logical address space can be much larger than physical memory</li>
+      <li><strong>Page Fault:</strong> Needed page NOT in memory → OS loads it from disk → restarts instruction</li>
+      <li><strong>Page Table:</strong> Maps logical page numbers to physical frame numbers</li>
+    </ul>
+
+    <h3>3.3.5.2 — Advantages of Virtual Memory</h3>
+    <ul>
+      <li>Programs can be larger than physical RAM</li>
+      <li>More processes run simultaneously</li>
+      <li>Increased CPU utilization and throughput</li>
+      <li>Less I/O needed — only load active pages</li>
+    </ul>
+
+    <h3>3.3.7 — Segmented Memory Management</h3>
+    <div class="def"><strong>Segmentation</strong>Memory divided into variable-length segments corresponding to logical units: code, data, stack, heap. Each has a segment number and offset. Segment table stores base address and limit for each segment.</div>
+
+    <h3>3.5.2 — Psychological Trade-Offs</h3>
+    <p>Fundamental OS design tension: <strong>Throughput</strong> (total work done per unit time) vs <strong>Response Time</strong> (how fast one user gets results). Optimizing for one usually harms the other. This guides all scheduling decisions.</p>
+
+    <h3>3.6 — Thrashing</h3>
+    <div class="def"><strong>Thrashing</strong>A condition where a process/system spends MORE time swapping pages (paging) than executing instructions. CPU utilization drops sharply despite system being "busy." Caused by too many processes competing for too little RAM.</div>
+    <ul>
+      <li><strong>Solution 1:</strong> Reduce degree of multiprogramming — suspend some processes</li>
+      <li><strong>Solution 2:</strong> Working Set Model — keep all pages a process actively uses (its working set) in memory</li>
+      <li><strong>Solution 3:</strong> Increase physical RAM</li>
+    </ul>
+  </div>
+</div>
+
+<!-- CHAPTER 4 -->
+<div id="ch4">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Four</div>
+    <h2>Memory Management — Early Systems</h2>
+  </div>
+
+  <div class="sec">
+    <h3>4.1 — Single User Configuration (SVC)</h3>
+    <div class="def"><strong>Definition</strong>A standalone computer running a batch OS (e.g. IBM OS/370, FORTRAN, MS-DOS). Only ONE job is in memory at a time. Job runs to completion before the next is loaded.</div>
+    <div class="g2">
+      <div class="card"><h4>Advantages</h4><ul><li>Simple allocation strategy</li><li>Simple memory space</li><li>No complicated housekeeping</li></ul></div>
+      <div class="card"><h4>Disadvantages</h4><ul><li>Memory not fully utilized — wasted space</li><li>CPU idle during I/O operations</li><li>Only one user/job at a time</li></ul></div>
+    </div>
+
+    <h3>4.2 — Partitioned Memory Management</h3>
+    <div class="def"><strong>Fixed Partitioning</strong>Memory divided into fixed-size partitions at boot time. Each partition holds exactly one process. Simple but causes Internal Fragmentation — unused space inside a partition when process is smaller than partition.</div>
+
+    <h3>4.3 — Dynamic Partitions</h3>
+    <div class="def"><strong>Dynamic Partitioning</strong>Partitions created dynamically — each exactly the size of the arriving process. More efficient but causes External Fragmentation — total free memory is sufficient but scattered as non-contiguous holes.</div>
+    <ul>
+      <li><strong>Compaction:</strong> Shuffle processes to consolidate free space — expensive, requires relocatable code</li>
+    </ul>
+
+    <h3>4.4 — Relocatable Dynamic Partitions</h3>
+    <div class="def"><strong>Relocatable Memory</strong>Programs can be moved (relocated) in memory during execution. Uses a Relocation Register: Physical Address = Logical Address + Base Register value. Handled by the MMU (Memory Management Unit).</div>
+  </div>
+</div>
+
+<!-- CHAPTER 5 -->
+<div id="ch5">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Five</div>
+    <h2>Memory Management — Recent Systems</h2>
+  </div>
+
+  <div class="sec">
+    <h3>5.1 — Paged Memory Allocation</h3>
+    <div class="def"><strong>Paging</strong>Physical memory divided into fixed-size FRAMES; logical memory into same-size PAGES. Any page can go into any available frame — no need for contiguous physical memory. A page table maps page numbers to frame numbers.</div>
+    <ul>
+      <li>Memory manager: (1) counts pages, (2) finds empty frames, (3) loads all pages into frames</li>
+      <li>Eliminates external fragmentation; may have internal fragmentation in last page</li>
+      <li>Pages measured in bytes (8 bits = 1 byte)</li>
+    </ul>
+    <p><strong>Example:</strong> Job = 650 lines, page size = 100 lines → 7 pages needed. Last page = 50 lines → 50 lines wasted = internal fragmentation.</p>
+
+    <h3>5.2 — Demand Paged Memory Allocation</h3>
+    <div class="def"><strong>Demand Paging</strong>Pages loaded into memory ONLY when needed (demanded) — not all at once. Uses a lazy swapper. When a needed page is not in memory → Page Fault → OS loads page from disk → restarts instruction.</div>
+    <p><strong>Page Replacement Algorithms:</strong> FIFO (First-In-First-Out), LRU (Least Recently Used), Optimal (replace page not used for longest time — theoretical best).</p>
+
+    <h3>5.3 — Segmented Memory Allocation</h3>
+    <ul>
+      <li>Memory divided into variable-length logical segments (code, data, stack, heap)</li>
+      <li>Each segment has a segment number and an offset within the segment</li>
+      <li>Segment table stores: base (starting physical address) + limit (length of segment)</li>
+      <li>Natural to programmer — matches logical program structure</li>
+      <li>Suffers from external fragmentation</li>
+    </ul>
+
+    <h3>5.4 — Segmented/Demand Paged Allocation</h3>
+    <div class="def"><strong>Combined Scheme</strong>Each segment is further divided into pages. Gets logical benefits of segmentation + physical benefits of paging. Eliminates external fragmentation while maintaining logical program structure. Used in Intel x86 protected mode.</div>
+
+    <h3>Comparison of All Memory Schemes</h3>
+    <table>
+      <tr><th>Scheme</th><th>Fragmentation Type</th><th>Notes</th></tr>
+      <tr><td>SVC</td><td>High internal</td><td>One job at a time; simple</td></tr>
+      <tr><td>Fixed Partition</td><td>Internal</td><td>Fixed sizes; simple but wasteful</td></tr>
+      <tr><td>Dynamic Partition</td><td>External</td><td>Variable sizes; needs compaction</td></tr>
+      <tr><td>Relocatable</td><td>External</td><td>Can compact; uses relocation register</td></tr>
+      <tr><td>Paging</td><td>Internal (last page)</td><td>No external fragmentation; uses page table</td></tr>
+      <tr><td>Demand Paging</td><td>Internal (last page)</td><td>Enables virtual memory; page faults</td></tr>
+      <tr><td>Segmentation</td><td>External</td><td>Logical structure; variable-length segments</td></tr>
+      <tr><td>Seg + Paging</td><td>Minimal internal</td><td>Best of both; used in x86</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- CHAPTER 6 -->
+<div id="ch6">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Six</div>
+    <h2>DOS — Disk Operating System</h2>
+  </div>
+
+  <div class="sec">
+    <h3>6.1 — Internal vs External DOS Commands</h3>
+    <div class="g2">
+      <div class="card"><h4>Internal Commands</h4><p>Loaded into memory at boot. Always available without accessing disk.</p><p>DIR, CLS, COPY, DEL, REN, TYPE, DATE, TIME, VER, CD, MD, RD, PATH, SET, PROMPT</p></div>
+      <div class="card"><h4>External Commands</h4><p>Stored as .COM or .EXE files on disk. Loaded from disk each time used.</p><p>FORMAT, DISKCOPY, CHKDSK, FDISK, ATTRIB, XCOPY, SORT, FIND, BACKUP, RESTORE</p></div>
+    </div>
+
+    <h3>6.2 — Files and File Names in DOS</h3>
+    <ul>
+      <li>File name MUST start with an alphabet</li>
+      <li>Name must reflect content of the file</li>
+      <li>Maximum 8 characters name + 3 characters extension (8.3 format)</li>
+      <li>Extension identifies type: .EXE (executable), .COM (command), .BAT (batch), .TXT (text)</li>
+      <li>Cannot use: / \ : * ? " &lt; &gt; |</li>
+    </ul>
+
+    <h3>6.3 — Directory Commands</h3>
+    <table>
+      <tr><th>Command</th><th>Function</th><th>Example</th></tr>
+      <tr><td>MD / MKDIR</td><td>Create a directory</td><td>MD MYFILES</td></tr>
+      <tr><td>CD / CHDIR</td><td>Change directory</td><td>CD MYFILES</td></tr>
+      <tr><td>RD / RMDIR</td><td>Remove empty directory</td><td>RD MYFILES</td></tr>
+      <tr><td>DIR</td><td>List directory contents</td><td>DIR /W /P</td></tr>
+      <tr><td>TREE</td><td>Display directory tree</td><td>TREE C:\</td></tr>
+      <tr><td>PATH</td><td>Set executable search path</td><td>PATH C:\DOS</td></tr>
+    </table>
+
+    <h3>6.4 — The FORMAT Command (External)</h3>
+    <div class="def"><strong>FORMAT</strong>Prepares a disk for use — creates Boot Record, FAT (File Allocation Table), and root directory. Erases ALL existing data. FORMAT A: /S also transfers system files (makes disk bootable). FORMAT A: /Q = quick format.</div>
+
+    <h3>6.5 — Wild Cards</h3>
+    <div class="g2">
+      <div class="card"><h4>* (Asterisk)</h4><p>Represents ANY number of characters.<br>*.TXT = all .TXT files<br>REPORT.* = all REPORT files regardless of extension</p></div>
+      <div class="card"><h4>? (Question Mark)</h4><p>Represents exactly ONE character.<br>FILE?.TXT matches FILE1.TXT, FILE2.TXT<br>Does NOT match FILE10.TXT</p></div>
+    </div>
+
+    <h3>6.6 — Copy and Disk Copy</h3>
+    <table>
+      <tr><th>Command</th><th>Function</th></tr>
+      <tr><td>COPY source dest</td><td>Copy one or more files</td></tr>
+      <tr><td>COPY A:*.* C:</td><td>Copy all files from A: to C:</td></tr>
+      <tr><td>DISKCOPY A: B:</td><td>Copy entire disk sector-by-sector (same-size disks only)</td></tr>
+      <tr><td>XCOPY</td><td>Extended copy — includes subdirectories</td></tr>
+    </table>
+
+    <h3>6.7 — Copying From Devices</h3>
+    <ul>
+      <li>COPY CON: FILE.TXT — type from keyboard directly into a file (CON = console/keyboard)</li>
+      <li>COPY FILE.TXT PRN — send file to printer (PRN = printer device)</li>
+      <li>DOS device names: CON, PRN, LPT1, LPT2, COM1, COM2, NUL (null device)</li>
+    </ul>
+
+    <h3>6.8/6.9 — Renaming Files &amp; Summary</h3>
+    <table>
+      <tr><th>Command</th><th>Function</th></tr>
+      <tr><td>REN oldname newname</td><td>Rename a file</td></tr>
+      <tr><td>TYPE filename</td><td>Display text file contents on screen</td></tr>
+      <tr><td>ATTRIB</td><td>Set/show file attributes: Read-Only (R), Hidden (H), System (S), Archive (A)</td></tr>
+      <tr><td>CHKDSK</td><td>Check disk for errors; display disk/memory status</td></tr>
+      <tr><td>VER</td><td>Display DOS version number</td></tr>
+      <tr><td>DATE / TIME</td><td>Show or set system date / time</td></tr>
+    </table>
+
+    <h3>DOS Directory Tree Structure</h3>
+    <p>Root (C:\) → subdirectories (GAMES, WORK, DOS) → files within each. Directories are like folders — they contain files and other directories (subdirectories). The root is the top-level directory.</p>
+  </div>
+</div>
+
+<!-- CHAPTER 7 -->
+<div id="ch7">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Seven</div>
+    <h2>Unix Operating System</h2>
+  </div>
+
+  <div class="sec">
+    <h3>7.1 — Brief History of Unix</h3>
+    <ul>
+      <li>Developed in 1969 at Bell Labs (AT&amp;T) by Ken Thompson and Dennis Ritchie</li>
+      <li>Originally written in Assembly; rewritten in C (1973) — made it portable across hardware</li>
+      <li>First OS written in a high-level language</li>
+      <li>Foundation for: Linux, macOS, Android, iOS, BSD</li>
+    </ul>
+
+    <h3>7.2 — Unix Design Goals</h3>
+    <ul>
+      <li>Simple, elegant, and easy to use</li>
+      <li>Multi-user and multi-tasking from the ground up</li>
+      <li>Portable — written in C, runs on many hardware platforms</li>
+      <li>"Everything is a file" — devices, pipes, sockets all treated as files</li>
+      <li>Small focused programs that do one thing well, combined via pipes</li>
+    </ul>
+
+    <h3>7.3 — Unix Structure</h3>
+    <table>
+      <tr><th>Layer</th><th>Component</th><th>Role</th></tr>
+      <tr><td>Inner</td><td>Kernel</td><td>Process mgmt, memory, I/O, file system — core OS</td></tr>
+      <tr><td>Middle</td><td>System Calls</td><td>Interface between user programs and kernel</td></tr>
+      <tr><td>Outer</td><td>Shell / Utilities</td><td>Command interpreter (bash, sh, csh) + user programs</td></tr>
+    </table>
+
+    <h3>7.4 — Memory Management in Unix</h3>
+    <ul>
+      <li>Uses demand paging with page replacement</li>
+      <li>Supports swapping — entire processes swapped to disk when memory is low</li>
+      <li>Shared memory — multiple processes can map same physical pages</li>
+      <li><strong>Copy-on-Write (COW):</strong> When process forks, pages only copied when one process modifies them</li>
+    </ul>
+
+    <h3>7.5 — Processor Management in Unix</h3>
+    <ul>
+      <li>Preemptive, priority-based scheduling</li>
+      <li>Time-sharing: each process gets a time quantum</li>
+      <li>Process priority decreases as it uses more CPU (prevents monopoly)</li>
+      <li>Supports foreground and background processes (&amp; operator)</li>
+    </ul>
+
+    <h3>7.5.1 — Synchronization in Unix</h3>
+    <ul>
+      <li>Uses semaphores (System V IPC) for process synchronization</li>
+      <li>Uses signals for inter-process notification (SIGKILL, SIGTERM, SIGINT)</li>
+      <li>Supports message queues and shared memory segments</li>
+    </ul>
+
+    <h3>7.6 — Device Management in Unix</h3>
+    <ul>
+      <li>All devices are files — located in /dev directory</li>
+      <li><strong>Block Devices:</strong> Transfer data in blocks — e.g. /dev/sda (hard disk)</li>
+      <li><strong>Character Devices:</strong> Transfer character by character — e.g. /dev/tty (keyboard/terminal)</li>
+      <li>Device drivers are modules in the kernel</li>
+    </ul>
+
+    <h3>7.7 — File Management in Unix</h3>
+    <div class="def"><strong>Unix File System</strong>Hierarchical tree starting at root (/). Everything is a file. Uses inodes to store file metadata: size, owner, permissions, timestamps, data block pointers. File names are case-sensitive.</div>
+
+    <h3>7.7.1/7.7.2 — File Storage and File Names</h3>
+    <ul>
+      <li>File names are case-sensitive: File.txt ≠ file.txt</li>
+      <li>Can use almost any character except / (path separator) and null byte</li>
+      <li>No drive letters — everything under one root /</li>
+      <li>Hidden files start with a dot: .bashrc, .profile</li>
+    </ul>
+
+    <h3>7.7.3 — Pipes</h3>
+    <div class="def"><strong>Pipe ( | )</strong>Connects the output of one command to the input of another. Enables chaining specialized programs. Example: ls -l | grep ".txt" | sort — lists files, filters .txt files, sorts the result.</div>
+
+    <h3>7.8 — Other Unix Features</h3>
+    <ul>
+      <li><strong>Shell scripting:</strong> Automate tasks using bash/sh scripts</li>
+      <li><strong>Permissions:</strong> Read(r), Write(w), Execute(x) for Owner, Group, Others — e.g. chmod 755</li>
+      <li><strong>Symbolic Links:</strong> Shortcuts/aliases to files or directories</li>
+      <li><strong>Redirection:</strong> &gt; (output to file), &lt; (input from file), &gt;&gt; (append to file)</li>
+    </ul>
+
+    <h3>7.9 — SCO Unix System</h3>
+    <div class="g2">
+      <div class="card"><h4>7.9.2 Multi-User</h4><p>Multiple users log in and work simultaneously on one machine.</p></div>
+      <div class="card"><h4>7.9.3 Multi-tasking</h4><p>Multiple processes run concurrently via preemptive scheduling.</p></div>
+      <div class="card"><h4>7.9.4 Shared Peripherals</h4><p>Printers, modems, storage shared by all users.</p></div>
+      <div class="card"><h4>7.9.5 Hierarchical File Structure</h4><p>Tree-structured directories: / → /bin, /etc, /home, /var, /tmp.</p></div>
+      <div class="card"><h4>7.9.8 Shell Environment</h4><p>Command interpreter (bash, sh, ksh). Customizable via environment variables.</p></div>
+      <div class="card"><h4>7.9.9 Security &amp; Auditing</h4><p>User authentication, file permissions (rwx), audit logs, stronger than DOS.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAPTER 8 -->
+<div id="ch8">
+  <div class="ch-header">
+    <div class="ch-label">Chapter Eight</div>
+    <h2>Linux Operating System</h2>
+  </div>
+
+  <div class="sec">
+    <h3>8.0 — Introduction</h3>
+    <div class="def"><strong>Linux</strong>A free, open-source, Unix-like OS kernel created by Linus Torvalds in 1991 (Finland). Combined with GNU tools (Richard Stallman) it forms GNU/Linux — the OS used on servers, desktops, phones (Android), and supercomputers worldwide.</div>
+
+    <h3>8.1 — Linux vs Unix vs DOS</h3>
+    <table>
+      <tr><th>Feature</th><th>DOS</th><th>Unix</th><th>Linux</th></tr>
+      <tr><td>Source</td><td>Closed (Microsoft)</td><td>Closed (AT&amp;T)</td><td>Open Source (free)</td></tr>
+      <tr><td>Users</td><td>Single user</td><td>Multi-user</td><td>Multi-user</td></tr>
+      <tr><td>Tasking</td><td>Single task</td><td>Multi-tasking</td><td>Multi-tasking</td></tr>
+      <tr><td>Security</td><td>Basic</td><td>Good</td><td>Advanced (best)</td></tr>
+      <tr><td>Cost</td><td>Licensed</td><td>Licensed</td><td>Free</td></tr>
+      <tr><td>Interface</td><td>CLI only</td><td>CLI + GUI</td><td>CLI + GUI</td></tr>
+    </table>
+
+    <h3>8.2 — Key Features of Linux</h3>
+    <ul>
+      <li>Fully open source — anyone can read, modify, distribute</li>
+      <li>Highly stable and secure — preferred for web servers</li>
+      <li>Hundreds of distros: Ubuntu, Fedora, Debian, CentOS, Kali, Arch</li>
+      <li>Advanced user and permission management (root = superuser)</li>
+      <li>Package managers: apt (Ubuntu/Debian), yum/dnf (RedHat), pacman (Arch)</li>
+    </ul>
+
+    <h3>8.3 — Installing Linux</h3>
+    <ul>
+      <li>Can be installed standalone, dual-boot with Windows, or in a virtual machine (VirtualBox, VMware)</li>
+      <li>Boot from USB/CD → partition disk → install bootloader (GRUB)</li>
+      <li>Minimum: 1GHz CPU, 512MB RAM, 5GB disk</li>
+      <li>Termux on Android = Linux-like environment without full installation</li>
+    </ul>
+
+    <h3>Common Linux/Unix Commands</h3>
+    <table>
+      <tr><th>Command</th><th>Function</th></tr>
+      <tr><td>ls</td><td>List directory contents (like DOS DIR)</td></tr>
+      <tr><td>cd</td><td>Change directory</td></tr>
+      <tr><td>pwd</td><td>Print working (current) directory</td></tr>
+      <tr><td>mkdir / rmdir</td><td>Create / remove a directory</td></tr>
+      <tr><td>rm</td><td>Remove file (rm -r for directories)</td></tr>
+      <tr><td>cp / mv</td><td>Copy / move (or rename) files</td></tr>
+      <tr><td>cat</td><td>Display file contents</td></tr>
+      <tr><td>chmod</td><td>Change file permissions</td></tr>
+      <tr><td>sudo</td><td>Execute command as superuser (root)</td></tr>
+      <tr><td>ps / kill</td><td>List processes / terminate a process by PID</td></tr>
+      <tr><td>grep</td><td>Search for patterns in files</td></tr>
+      <tr><td>man</td><td>Show manual/help for any command</td></tr>
+      <tr><td>top</td><td>Real-time process monitor (like Task Manager)</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Q&A SECTION -->
+<div id="qa">
+  <div class="ch-header">
+    <div class="ch-label">Exam Prep — 25 Questions</div>
+    <h2>Possible Exam Questions &amp; Answers</h2>
+  </div>
+  <p style="margin-bottom:20px;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.08em">TAP EACH QUESTION TO REVEAL THE ANSWER</p>
+
+  <div class="qa-wrap">
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q01 — Ch.1 Definition</span>Define an Operating System. Give two definitions and state its three phases of operation.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Def 1 (Program View):</strong> An OS is an elaborate set of programs that controls all computer operations without requiring human intervention.<br><br><strong>Def 2 (Hardware View):</strong> An OS is an Input Unit that translates tools into the computer (RAM/ROM). When you boot, ROM calls the OS, editors, compilers, assemblers, and interpreters.<br><br><strong>Three Phases:</strong> Input → Process → Output.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q02 — Ch.1 Components</span>Name and explain the four components of an Operating System.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Memory Manager</strong> — Tracks, allocates, and de-allocates all memory</li><li><strong>Processor Manager</strong> — Manages CPU time; schedules processes</li><li><strong>Device Manager</strong> — Manages all I/O hardware via device drivers</li><li><strong>File Manager</strong> — Handles file creation, deletion, reading, writing, and access permissions</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q03 — Ch.1 Multi-Terms</span>Distinguish between Multi-programming, Multi-processing, and Multi-tasking.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Multi-programming:</strong> Multiple programs in memory simultaneously. CPU switches when one waits for I/O. Maximizes CPU use. No true parallelism on single CPU.<br><br><strong>Multi-processing:</strong> Two or more CPUs in one system. True parallel execution. Increases throughput and reliability.<br><br><strong>Multi-tasking:</strong> Rapid context-switching on single CPU giving illusion of simultaneous tasks. Time-shared CPU.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q04 — Ch.2 Processes</span>What is a process? Distinguish between a program and a process. List the five process states.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Process:</strong> A program in execution — active entity with allocated resources (CPU, memory, files).<br><br><strong>Program vs Process:</strong> A program is passive (code on disk). A process is active (program + its execution state). Two processes can run the same program independently.<br><br><strong>Five States:</strong> New → Ready → Running → Waiting → Terminated.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q05 — Ch.2 Suspend/Resume</span>Explain Suspend and Resume in process management. When does the OS suspend a process?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Suspend:</strong> OS moves process from RAM to secondary storage (disk) to free memory. Suspended process is NOT in ready queue; cannot execute until resumed.<br><br><strong>Resume:</strong> OS brings process back from disk into RAM; places it back in ready queue to continue from exactly where it was suspended.<br><br><strong>Why suspend?</strong> Memory overload; process waiting too long; higher-priority process needs memory.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q06 — Ch.2 Interrupts</span>What is interrupt processing? Name and explain the four types of interrupts.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Definition:</strong> A signal causing the CPU to suspend its current task, save its state, and handle a higher-priority event via an ISR (Interrupt Service Routine). "Another word for interrupt is After."<br><br><ul><li><strong>Program Interrupt</strong> — Software error, e.g. dividing ANY number by zero</li><li><strong>Timer Interrupt</strong> — System clock triggers → CMOS Battery</li><li><strong>I/O Interrupt</strong> — I/O device completes or needs attention</li><li><strong>Hardware Failure</strong> — Hardware component fails</li></ul><strong>KEY:</strong> Dividing by zero = Program Interrupt!</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q07 — Ch.2 Nucleus</span>What is the Nucleus (Kernel) of an OS? State its key responsibilities and one important characteristic.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Nucleus/Kernel:</strong> The innermost, most privileged core of the OS. Runs directly on hardware. Manages the most critical operations.<br><br><strong>Responsibilities:</strong><ul><li>Interrupt handling</li><li>Process scheduling</li><li>Memory management</li><li>I/O management and device drivers</li><li>Manages user mode ↔ kernel mode transitions (system calls)</li></ul><strong>Key characteristic:</strong> ALWAYS resident in main memory — NEVER swapped out to disk.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q08 — Ch.2 Concurrency</span>Define concurrent processes. What is a race condition and a critical section?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Concurrent Processes:</strong> Two or more processes executing overlapping in time. Single CPU: rapid context-switching. Multi-CPU: true parallel execution.<br><br><strong>Race Condition:</strong> When the outcome depends on the order in which concurrent processes access shared data — result is unpredictable and non-deterministic. A serious bug.<br><br><strong>Critical Section:</strong> Code that accesses shared resources and must NOT be executed by more than one process simultaneously. Solutions must satisfy: Mutual Exclusion, Progress, and Bounded Waiting.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q09 — Ch.2 Semaphores</span>What is a semaphore? Distinguish between binary and counting semaphores. Name the two operations.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Semaphore:</strong> A synchronization integer variable (Dijkstra) accessed only via two atomic operations:<br><br><strong>wait(S) / P(S):</strong> Decrement S. If S &lt; 0, block the process.<br><strong>signal(S) / V(S):</strong> Increment S. If S ≤ 0, wake a waiting process.<br><br><strong>Binary Semaphore:</strong> Value = 0 or 1. Used as a mutex lock for critical sections.<br><strong>Counting Semaphore:</strong> Value = 0 to N. Controls access to a pool of N identical resources.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q10 — Ch.2 Monitors</span>What is a Monitor? How does it differ from a semaphore?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Monitor:</strong> A high-level synchronization construct — a module that encapsulates shared data and the procedures that operate on it. Only ONE process can be active inside at a time (mutual exclusion is automatic).<br><br><strong>Difference from Semaphore:</strong><ul><li>Monitors are safer — mutual exclusion is built-in, not programmer responsibility</li><li>Monitors use condition variables (wait/signal on conditions)</li><li>Semaphores are lower-level and easier to misuse</li><li>Monitors used in Java (synchronized), Semaphores used in Unix (System V IPC)</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q11 — Ch.2 Dining</span>Describe the Dining Philosophers Problem. State two solutions and what OS concept it illustrates.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Problem:</strong> 5 philosophers at a round table. Each alternates thinking and eating. One fork between each pair (5 forks total). Eating needs BOTH forks. If all grab left fork simultaneously → circular wait → deadlock → no one eats.<br><br><strong>Solutions:</strong><ul><li>Allow at most 4 philosophers at the table simultaneously</li><li>Asymmetric rule: odd philosophers pick left fork first; even pick right fork first</li><li>Use semaphore/monitor: only pick up forks when BOTH are available</li></ul><strong>Illustrates:</strong> Deadlock (circular wait), starvation, and resource allocation in concurrent systems.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q12 — Ch.3 Deadlock</span>Define deadlock and state ALL five conditions necessary for it to occur.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Deadlock:</strong> A situation where a group of processes are permanently blocked — each holds some resources and waits for resources held by others — making it impossible for any process to proceed.<br><br><strong>Five Conditions (ALL must hold simultaneously):</strong><ul><li><strong>Mutual Exclusion</strong> — Only one process uses a resource at a time</li><li><strong>Hold and Wait</strong> — A process holds resources while waiting for more</li><li><strong>No Preemption</strong> — Resources cannot be forcibly taken; only voluntarily released</li><li><strong>Circular Wait</strong> — Circular chain: P0 waits for P1, P1 for P2, …Pn for P0</li><li><strong>Irreversibility</strong> — System cannot self-resolve the deadlock</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q13 — Ch.3 Deadlock Methods</span>What are the four methods of dealing with deadlock? Explain each.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Prevention</strong> — Structurally eliminate one of the four necessary conditions. E.g. require all resources requested upfront (eliminates hold-and-wait).</li><li><strong>Avoidance</strong> — Use Banker's Algorithm. Only grant requests that leave system in a safe state.</li><li><strong>Detection</strong> — Allow deadlock to occur. Use resource allocation graph/wait-for graph to detect it, then take action.</li><li><strong>Recovery</strong> — After detection: terminate deadlocked processes one by one, OR preempt resources from processes and roll back to safe state.</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q14 — Ch.3 Banker's</span>Explain the Banker's Algorithm. What is a Safe State? Solve this: P1 alloc=3, max=9; P2 alloc=2, max=4; P3 alloc=3, max=7. Available=2.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Banker's Algorithm:</strong> Before granting a request, simulate allocation and verify the system remains in a safe state. Formula: Need = Max − Allocated. If Need ≤ Available → process can proceed.<br><br><strong>Safe State:</strong> There exists a sequence where every process can complete and return resources to allow others to proceed.<br><br><strong>Solution:</strong><br>P1 Need = 9−3 = 6. P2 Need = 4−2 = 2. P3 Need = 7−3 = 4. Available = 2.<br>P2 needs 2 ≤ 2 ✓ → P2 runs, finishes, returns 2+2=4 → Available = 6<br>P3 needs 4 ≤ 6 ✓ → P3 finishes, returns 3+4=7 → Available = 13<br>P1 needs 6 ≤ 13 ✓ → SAFE. Safe sequence: P2 → P3 → P1.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q15 — Ch.3 Virtual Memory</span>What is Virtual Memory? State its advantages and explain what a Page Fault is.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Virtual Memory:</strong> A technique allowing processes to execute even when NOT completely in main memory. Active pages are in RAM; the rest on disk. OS swaps pages in/out as needed — gives illusion of more memory than physically exists.<br><br><strong>Advantages:</strong><ul><li>Programs can be larger than physical RAM</li><li>More processes run simultaneously</li><li>Increased CPU utilization and throughput</li><li>Less I/O — only load active pages</li></ul><strong>Page Fault:</strong> Occurs when needed page is NOT in RAM. OS suspends process, loads page from disk into a free frame, updates page table, then restarts the interrupted instruction.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q16 — Ch.3 Thrashing</span>What is Thrashing? What causes it and how is it resolved?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Thrashing:</strong> A condition where the system spends more time swapping pages than executing instructions. CPU utilization drops sharply despite system being "busy."<br><br><strong>Cause:</strong> Too many processes in memory competing for too few frames. Each process causes constant page faults — loading one page evicts another that will soon be needed again.<br><br><strong>Solutions:</strong><ul><li>Reduce degree of multiprogramming — suspend some processes to free memory</li><li>Working Set Model — ensure all pages a process actively uses are resident in memory</li><li>Increase physical RAM</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q17 — Ch.3 Storage Strategies</span>Explain the four storage placement strategies. Which is generally considered most efficient?</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>First Fit:</strong> Allocate first hole large enough. Fast but can fragment the start of memory.</li><li><strong>Best Fit:</strong> Allocate smallest hole large enough. Minimizes wasted space per allocation but slow (searches all holes) and leaves many tiny fragments.</li><li><strong>Worst Fit:</strong> Allocate largest hole. Leaves the biggest remaining fragment. Can be useful when future requests are large.</li><li><strong>Next Fit:</strong> Like First Fit but starts from last allocation point. Distributes allocation more uniformly.</li></ul><strong>Generally:</strong> First Fit and Best Fit outperform Worst Fit. First Fit is often preferred for speed.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q18 — Ch.4/5 Memory Types</span>Compare Early and Recent memory management techniques. List all types under each.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Early (Old) Memory Management:</strong><ul><li>Single User Configuration (SVC) — one job at a time; batch OS</li><li>Partitioned Memory Management — fixed-size partitions</li><li>Dynamic Memory Management — variable-size partitions</li><li>Relocatable Memory Management — programs moveable using relocation register</li></ul><strong>Recent (New) Memory Management:</strong><ul><li>Paged Memory Allocation — fixed-size pages/frames; page table</li><li>Demand Paged Memory Allocation — pages loaded only when needed; enables virtual memory</li><li>Segmented Memory Allocation — variable-length logical segments</li><li>Segmented/Demand Paged Allocation — combines segmentation and paging; best of both</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q19 — Ch.4 SVC</span>What is Single User Configuration? State its characteristics, advantages, and disadvantages.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>SVC:</strong> Standalone computer running a batch OS (IBM OS/370, FORTRAN, MS-DOS). One job in memory at a time; runs to completion before next job loads.<br><br><strong>Characteristics:</strong> Keeps track of memory; obeys memory policy; allocates memory; de-allocates memory.<br><br><strong>Advantages:</strong> Simple allocation strategy; simple memory space; no complicated housekeeping.<br><br><strong>Disadvantages:</strong> Memory not fully utilized — wasted space; CPU idle during I/O; only one user/job at a time.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q20 — Ch.5 Fragmentation</span>Distinguish between internal and external fragmentation. Give solutions for each.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Internal Fragmentation:</strong> Wasted space INSIDE an allocated block/page/partition — allocated memory is larger than what the process needs. Occurs with fixed partitions and paging (last page).<br>Example: 100KB partition given to 70KB process → 30KB wasted inside.<br><strong>Solution:</strong> Smaller page/partition sizes (trade-off with overhead).<br><br><strong>External Fragmentation:</strong> Total free memory is sufficient but scattered as non-contiguous holes — no single hole is large enough. Occurs with dynamic partitioning and segmentation.<br><strong>Solutions:</strong> Compaction (expensive) or use Paging (which eliminates external fragmentation entirely).</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q21 — Ch.5 Paging</span>Explain Paged Memory Allocation with a worked example. What is the page table?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Paging:</strong> Physical memory divided into fixed-size FRAMES; logical memory into same-size PAGES. Any page can go into any free frame — no contiguous requirement.<br><br><strong>Before executing:</strong> (1) Count pages in program, (2) Find enough empty frames, (3) Load all pages into frames.<br><br><strong>Example:</strong> Job = 650 lines, page size = 100 lines:<br>Page 1 → 100 lines, Page 2 → 100, Page 3 → 100, Page 4 → 100, Page 5 → 100, Page 6 → 50 lines (100−50 = 50 lines wasted = internal fragmentation). Total: 6 pages.<br><br><strong>Page Table:</strong> Maps page number to frame number. OS uses it to translate every logical address to a physical address.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q22 — Ch.6 DOS Commands</span>Distinguish between Internal and External DOS commands. Give five examples of each.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Internal Commands:</strong> Loaded into memory at boot — always available, no disk access needed.<br>Examples: DIR (list files), CLS (clear screen), COPY (copy files), DEL (delete file), REN (rename), CD (change directory), VER (version), DATE, TIME, TYPE<br><br><strong>External Commands:</strong> Stored as .COM or .EXE files on disk — loaded from disk each time.<br>Examples: FORMAT (prepare disk), CHKDSK (check disk), XCOPY (extended copy), FDISK (disk partitioning), ATTRIB (file attributes), DISKCOPY, SORT, FIND</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q23 — Ch.6 Wild Cards</span>What are wild cards in DOS? Explain * and ? with examples. Give rules for DOS file naming.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Wild Cards:</strong> Special characters representing unknown characters in file/directory names.<br><br><strong>* (Asterisk)</strong> — Any number of characters:<br>DIR *.TXT → all .TXT files; DEL REPORT.* → all files named REPORT<br><br><strong>? (Question Mark)</strong> — Exactly ONE character:<br>DIR FILE?.TXT → FILE1.TXT, FILE2.TXT but NOT FILE10.TXT<br><br><strong>DOS File Naming Rules:</strong><ul><li>File name must start with an alphabet</li><li>Name must reflect the file's content</li><li>Maximum 8 characters name + 3 character extension (8.3 format)</li><li>Cannot use special characters: / \ : * ? " &lt; &gt; |</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q24 — Ch.7 Unix</span>Give a brief history of Unix. State its design goals and describe its three-layer structure.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>History:</strong> Developed 1969 at Bell Labs (AT&T) by Ken Thompson and Dennis Ritchie. Originally Assembly; rewritten in C (1973) — first OS in a high-level language, making it portable. Foundation for Linux, macOS, Android.<br><br><strong>Design Goals:</strong> Simple and elegant; multi-user and multi-tasking; portable (written in C); "everything is a file"; small focused programs combined via pipes.<br><br><strong>Three-Layer Structure:</strong><br>1. Kernel (inner) — core OS: process management, memory, I/O, file system<br>2. System Calls (middle) — interface between user programs and kernel<br>3. Shell/Utilities (outer) — command interpreter (bash, sh, csh) + user programs</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q25 — Ch.7/8 Unix vs Linux vs DOS</span>Compare DOS, Unix, and Linux. Which has the most advanced security and why?</span><div class="q-icon"></div></div>
+      <div class="a"><table style="font-size:13px"><tr><th>Feature</th><th>DOS</th><th>Unix</th><th>Linux</th></tr><tr><td>Users</td><td>Single</td><td>Multi-user</td><td>Multi-user</td></tr><tr><td>Tasking</td><td>Single task</td><td>Multi-tasking</td><td>Multi-tasking</td></tr><tr><td>Source</td><td>Closed</td><td>Closed</td><td>Open Source</td></tr><tr><td>Security</td><td>Basic</td><td>Good</td><td>Advanced</td></tr><tr><td>Cost</td><td>Licensed</td><td>Licensed</td><td>Free</td></tr></table><br><strong>Linux has the most advanced security</strong> because: it is open-source (millions review the code for vulnerabilities), has robust user/permission management, supports mandatory access controls (SELinux, AppArmor), receives rapid security patches from a global community, and was built from the ground up for multi-user security — unlike DOS which was designed for single-user systems.</div>
+    </div>
+
+  </div>
+</div>
+
+<p class="notice">ALL 8 CHAPTERS FULLY COVERED · 300L IT · GOOD LUCK TUESDAY</p>
+
+</div>
+
+<script>
+document.querySelectorAll('.qa').forEach(q => {
+  q.setAttribute('tabindex','0');
+  q.addEventListener('keydown', e => {
+    if(e.key==='Enter'||e.key===' ') q.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>
