@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OS Exam Notes — 300L IT</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --border: #272727;
+    --accent: #e8ff47;
+    --accent2: #ff6b35;
+    --text: #e8e8e0;
+    --muted: #888;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 0 0 80px;
+  }
+
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px 20px;
+    position: sticky; top: 0;
+    background: var(--bg);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  header h1 {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 2px;
+  }
+
+  .toc {
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .toc a {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    transition: all 0.15s;
+  }
+  .toc a:hover { color: var(--accent); border-color: var(--accent); }
+
+  main { padding: 0 24px; max-width: 900px; margin: 0 auto; }
+
+  .section {
+    margin-top: 48px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 28px 0 10px;
+  }
+
+  p { color: #c8c8c0; margin-bottom: 12px; }
+
+  ul {
+    list-style: none;
+    margin-bottom: 16px;
+  }
+
+  ul li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+    color: #c8c8c0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  .def-box {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .def-box strong {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .card h4 {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent2);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .card p, .card li { font-size: 13px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13px;
+  }
+
+  th {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: #1a1a1a;
+    padding: 10px 14px;
+    text-align: left;
+    color: var(--accent);
+    border: 1px solid var(--border);
+  }
+
+  td {
+    padding: 9px 14px;
+    border: 1px solid var(--border);
+    color: #c8c8c0;
+    vertical-align: top;
+  }
+
+  tr:hover td { background: #171717; }
+
+  /* Q&A Section */
+  .qa-block {
+    margin: 16px 0;
+    border: 1px solid var(--border);
+  }
+
+  .question {
+    background: #161616;
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .question::after {
+    content: '+';
+    color: var(--accent);
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+
+  .qa-block.open .question::after { content: '−'; }
+
+  .answer {
+    display: none;
+    padding: 16px 18px;
+    background: var(--surface);
+    color: #c8c8c0;
+    font-size: 14px;
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+  }
+
+  .answer ul { margin-top: 8px; }
+
+  .qa-block.open .answer { display: block; }
+
+  .qnum {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+    letter-spacing: 0.15em;
+  }
+
+  .highlight {
+    background: rgba(232,255,71,0.08);
+    border: 1px solid rgba(232,255,71,0.2);
+    padding: 12px 16px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    margin: 2px;
+    text-transform: uppercase;
+  }
+  .tag.red { background: rgba(255,107,53,0.15); color: var(--accent2); border: 1px solid rgba(255,107,53,0.3); }
+  .tag.yellow { background: rgba(232,255,71,0.1); color: var(--accent); border: 1px solid rgba(232,255,71,0.25); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Operating Systems — Exam Notes</h1>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <span class="badge">300L IT</span>
+    <span class="badge">Tuesday Exam</span>
+  </div>
+</header>
+
+<div class="toc">
+  <a href="#s1">OS Basics</a>
+  <a href="#s2">Deadlock</a>
+  <a href="#s3">Banker's Algo</a>
+  <a href="#s4">Memory Mgmt</a>
+  <a href="#s5">Interrupts</a>
+  <a href="#s6">DOS</a>
+  <a href="#s7">Q&amp;A</a>
+</div>
+
+<main>
+
+<!-- SECTION 1: OS BASICS -->
+<div class="section" id="s1">
+  <div class="section-label">Topic 01</div>
+  <h2>Operating System Basics</h2>
+
+  <div class="def-box">
+    <strong>Definition</strong>
+    An Operating System is an elaborate set of programs developed by a programmer to control all the operations that go on within the computer, to such an extent that it does not require any human intervention.
+  </div>
+
+  <h3>Three Phases of an OS</h3>
+  <table>
+    <tr><th>Phase</th><th>Description</th></tr>
+    <tr><td>Phase 1 — Input</td><td>Data/instructions enter the system</td></tr>
+    <tr><td>Phase 2 — Process</td><td>CPU processes the data</td></tr>
+    <tr><td>Phase 3 — Output</td><td>Results are produced</td></tr>
+  </table>
+
+  <h3>Secondary Definition (Hardware)</h3>
+  <div class="def-box">
+    <strong>Hardware View</strong>
+    An OS is an Input Unit that translates or converts all the tools to work with into the Computer — RAM/ROM. RAM = Random Access Memory. ROM = Read Only Memory.
+  </div>
+
+  <h3>Why We Need an OS</h3>
+  <ul>
+    <li>Computers can handle two or more tasks at a time (multitasking)</li>
+    <li>Multi-programming: multiple programs loaded into memory</li>
+    <li>Multi-processing: two or more CPUs working together on jobs</li>
+  </ul>
+
+  <h3>Key Concepts</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Batch</h4>
+      <p>Means "group." Jobs come in as a batch — you leave them and the system processes them. Called a <em>Batch System</em>.</p>
+    </div>
+    <div class="card">
+      <h4>Multi-programming vs Multi-processing</h4>
+      <p>Multi-programming: process where two or more tasks can be handled at the same time.<br>Multi-processing: two or more CPUs jump between jobs (tasks) together.</p>
+    </div>
+  </div>
+
+  <h3>4 Components of a Computer OS</h3>
+  <ul>
+    <li>Memory Manager</li>
+    <li>Processor Manager</li>
+    <li>Device Manager</li>
+    <li>File Manager</li>
+  </ul>
+
+  <h3>OS Functions — 4 Key Points</h3>
+  <ul>
+    <li>It must keep track of status of each resource (in use or not)</li>
+    <li>It monitors the resources continuously</li>
+    <li>It enforces policies — who gets what</li>
+    <li>It allocates resources; it de-allocates (reclaims) resources when appropriate</li>
+  </ul>
+
+  <div class="highlight">Boot sequence: When you boot a system, the ROM calls the OS, editors, compilers, assemblers, interpreters, etc. The cursor → goes to RAM, meaning you can access the structure via pointer changes.</div>
+
+  <h3>Types of Operating Systems</h3>
+  <table>
+    <tr><th>OS</th><th>Stands for</th><th>Notes</th></tr>
+    <tr><td>DOS</td><td>Disk Operating System</td><td>Basic, single-user</td></tr>
+    <tr><td>UOS</td><td>Unix OS</td><td>Unix Operating System</td></tr>
+    <tr><td>LOS</td><td>Linux OS</td><td>Linux Operating System; has advanced security features over DOS and UNIX</td></tr>
+  </table>
+
+  <h3>User Interface Types</h3>
+  <ul>
+    <li><strong>CLI</strong> — Command Line Interface</li>
+    <li><strong>GUI</strong> — Graphical User Interface</li>
+  </ul>
+</div>
+
+<!-- SECTION 2: DEADLOCK -->
+<div class="section" id="s2">
+  <div class="section-label">Topic 02</div>
+  <h2>Deadlock</h2>
+
+  <div class="def-box">
+    <strong>Definition (By Definition)</strong>
+    Deadlock can be defined as a set of processes where each process in the set is waiting for an event that can be caused by another process in that set. When something is hindering a process from doing its thing — it is deadlocked. When you start a process and it didn't finish, that process is also deadlocked.
+  </div>
+
+  <div class="def-box">
+    <strong>Alternative Definition (5/02/24)</strong>
+    A Deadlock is therefore a situation where a group of processes are permanently blocked as a result of each process having acquired a subset of the resources needed for its completion, and waiting for release of the remaining resources held by others in the same group — making it impossible for any process to prevail.
+  </div>
+
+  <h3>5 Conditions for Deadlock Occurrence</h3>
+  <ul>
+    <li><strong>Mutual Exclusion</strong> — When there is an agreement between two processes (only one can use resource at a time)</li>
+    <li><strong>Hold and Wait</strong> — A process holds a resource while waiting for another</li>
+    <li><strong>No Preemption</strong> — Resources cannot be forcibly taken from a process</li>
+    <li><strong>Circular Waiting</strong> — Each process waits for a resource held by the next in a circle</li>
+    <li><strong>Irreversible</strong> — Two processes cannot agree; deadlock has occurred</li>
+  </ul>
+
+  <h3>4 Methods of Dealing with Deadlock</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>1. Prevention</h4>
+      <p>The OS needs to use some explicit action to deal with possible deadlock before it occurs. Eliminate one of the 5 conditions.</p>
+    </div>
+    <div class="card">
+      <h4>2. Avoidance</h4>
+      <p>Use algorithms (like Banker's Algorithm) to ensure the system never enters an unsafe state.</p>
+    </div>
+    <div class="card">
+      <h4>3. Detection</h4>
+      <p>Allow deadlock to occur, detect it using resource allocation graphs or tables, then resolve.</p>
+    </div>
+    <div class="card">
+      <h4>4. Recovery</h4>
+      <p>After detection, recover by terminating processes or preempting resources.</p>
+    </div>
+  </div>
+
+  <h3>The Dining Philosophers Problem</h3>
+  <div class="def-box">
+    <strong>Concept</strong>
+    It is a table where people come and eat and drink at the same time thinking, eating, and thinking. Everything that has to do with dining philosophers — pick 5 or 6 and write an algorithm to handle them. A problem was discovered and an algorithm to solve it was found.
+  </div>
+  <ul>
+    <li>Classic synchronization problem involving 5 philosophers</li>
+    <li>Each philosopher alternates between thinking and eating</li>
+    <li>Must hold two forks (shared resources) to eat</li>
+    <li>Risk of deadlock if all pick up left fork simultaneously</li>
+    <li>Solutions: Timer Interrupt → CMOS Battery; Complementary Oracle Semi-conductor</li>
+  </ul>
+
+  <h3>Table of Transition (Deadlock Detection)</h3>
+  <p>It means competition — people competing. In deadlock, if you don't get to completion, deadlock has occurred. Resources is something that cost you money.</p>
+  <table>
+    <tr><th>User</th><th>Current Loan</th><th>Maximum Need</th></tr>
+    <tr><td>User 1</td><td>7</td><td>11</td></tr>
+    <tr><td>User 2</td><td>2</td><td>5</td></tr>
+    <tr><td>User 3</td><td>1</td><td>3</td></tr>
+    <tr><td colspan="2">Available = 1 unit</td><td>→ Unsafe State</td></tr>
+  </table>
+
+  <h3>Assignments from Notes</h3>
+  <ul>
+    <li>Y2K Problem — Find the solution</li>
+    <li>Timer Interrupt → CMOS Battery</li>
+    <li>Complementary Oracle Semi-conductor</li>
+    <li>Dividing any number by zero is a program interrupt</li>
+  </ul>
+</div>
+
+<!-- SECTION 3: BANKER'S ALGORITHM -->
+<div class="section" id="s3">
+  <div class="section-label">Topic 03</div>
+  <h2>Banker's Algorithm</h2>
+
+  <div class="def-box">
+    <strong>Concept</strong>
+    When there is a completion, you can say a state is Safe or Unsafe. The Banker's Algorithm helps determine if granting a resource request will leave the system in a safe state.
+  </div>
+
+  <h3>Safe vs Unsafe State</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Safe State ✓</h4>
+      <p>When one user/process can borrow and get to completion, you can say the state is safe. When you borrow and get to the completion, you give it back to the pool so others can also use it.</p>
+    </div>
+    <div class="card">
+      <h4>Unsafe State ✗</h4>
+      <p>Unsafe state is when none of the competitors can get to the end. The unsafe state does NOT necessarily imply the eventual existence of deadlock — but it could lead there.</p>
+    </div>
+  </div>
+
+  <h3>Worked Example — State 2</h3>
+  <table>
+    <tr><th>Process</th><th>Current Loan</th><th>Maximum Need</th><th>Available</th></tr>
+    <tr><td>User 1</td><td>5</td><td>7</td><td rowspan="3">2 units</td></tr>
+    <tr><td>User 2</td><td>9</td><td>11</td></tr>
+    <tr><td>User 3</td><td>4</td><td>8</td></tr>
+  </table>
+  <p>Available = 2 units. User 1 needs 7−5 = 2 ✓; User 2 needs 11−9 = 2; User 3 needs 8−4 = 4. Non can get to completion because the available 2 is not enough for User 3 (8−4=4). → <span class="tag red">Unsafe</span></p>
+
+  <h3>Worked Example — Banker's Table</h3>
+  <table>
+    <tr><th>Process</th><th>Current Loan</th><th>Maximum Need</th></tr>
+    <tr><td>User 1</td><td>10</td><td>14</td></tr>
+    <tr><td>User 2</td><td>5</td><td>8</td></tr>
+    <tr><td>User 3</td><td>4</td><td>7</td></tr>
+    <tr><td>User 4</td><td>1</td><td>4</td></tr>
+    <tr><td colspan="2">Available = 2 units</td><td></td></tr>
+  </table>
+
+  <h3>Key Rules</h3>
+  <ul>
+    <li>We want to migrate from Safe State to Unsafe State back to Safe State</li>
+    <li>When a process borrows and completes, it returns resources to the pool</li>
+    <li>Need = Maximum Need − Current Loan</li>
+    <li>If Need ≤ Available → process can proceed (safe)</li>
+  </ul>
+</div>
+
+<!-- SECTION 4: MEMORY MANAGEMENT -->
+<div class="section" id="s4">
+  <div class="section-label">Topic 04</div>
+  <h2>Memory Management</h2>
+
+  <div class="def-box">
+    <strong>Manhour Definition</strong>
+    Memory is the time you would have used to do something but used it to do something else. "Meaningless. Manhour simply means useful hour."
+  </div>
+
+  <h3>Memory Management is subdivided into</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>Early Memory Management (Old)</h4>
+      <ul>
+        <li>i. Single User Configuration (SVC)</li>
+        <li>ii. Partition Memory Mgt</li>
+        <li>iii. Dynamic Memory Mgt</li>
+        <li>iv. Relocatable Memory Mgt</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Recent Memory Management (New)</h4>
+      <ul>
+        <li>i. Paged Memory Allocation</li>
+        <li>ii. Demand Paged Memory Allocation</li>
+        <li>iii. Segmented Memory Allocation</li>
+        <li>iv. Segmented/Demand Paged Allocation</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Single User Configuration (SVC)</h3>
+  <div class="def-box">
+    <strong>Definition</strong>
+    Single User Configuration is associated with a standalone computer with a batch operating system. Examples: IBM OS/370, FORTRAN, MS-DOS (Disk Operating System).
+  </div>
+
+  <h3>Characteristics of SVC</h3>
+  <ul>
+    <li>It keeps track of memory</li>
+    <li>It also obeys memory policy</li>
+    <li>It allocates memory</li>
+    <li>De-allocation of memory</li>
+  </ul>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4>Advantages of SVC</h4>
+      <ul>
+        <li>Allocation strategy is generally simple to implement</li>
+        <li>Occupies relatively simple memory space</li>
+        <li>Does not involve complicated housekeeping operations</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Disadvantages of SVC</h4>
+      <ul>
+        <li>Memory may not be fully utilized (wasted space)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Partition Memory Management (ii)</h3>
+  <p>Drives involved: C:D (hard disk drive), A:D (floppy drive), B:D (flash drive), D:D (flash drive), E:D (flash drive).</p>
+
+  <h3>Page Memory Allocation (27/02/2025)</h3>
+  <div class="def-box">
+    <strong>Definition</strong>
+    Before executing a program, the memory manager does the following: determines the number of pages in a program, locates enough empty page frames in main memory, loads all the program pages into starter pages.
+  </div>
+
+  <h3>Key Page Memory Concepts</h3>
+  <ul>
+    <li>Page mapping — they are usually in bytes (8 bits make a byte = 0 or 1)</li>
+    <li>0 is the electrical signal that stands for OFF</li>
+    <li>1 is the electrical signal that stands for ON</li>
+    <li>Pages can be combined using (0) — they can end off at the same place</li>
+  </ul>
+
+  <h3>Page Allocation Example</h3>
+  <p>Suppose you are given a job that has 1100 lines, mapped to a memory. One permanent thing is that 1100 lines will be allocated equally. Any other reminder will be assumed a wasted space. Page map = 350 lines.</p>
+  <table>
+    <tr><th>Page</th><th>Lines</th></tr>
+    <tr><td>First</td><td>100 lines</td></tr>
+    <tr><td>Second</td><td>100 lines</td></tr>
+    <tr><td>Third</td><td>100 lines</td></tr>
+    <tr><td colspan="2">Remaining: 50 lines → Wasted Space</td></tr>
+  </table>
+
+  <h3>Page Map 650 Bytes Example</h3>
+  <table>
+    <tr><th>Page</th><th>Lines</th></tr>
+    <tr><td>First</td><td>100 line</td></tr>
+    <tr><td>Second</td><td>100 lines</td></tr>
+    <tr><td>Third</td><td>100 lines</td></tr>
+    <tr><td>Fourth</td><td>100 lines</td></tr>
+    <tr><td>Fifth</td><td>100 lines</td></tr>
+    <tr><td>Sixth (Remaining)</td><td>50 lines → Wasted Space</td></tr>
+  </table>
+  <p><em>Hence illustrates page mapping.</em></p>
+</div>
+
+<!-- SECTION 5: INTERRUPT PROCESSING -->
+<div class="section" id="s5">
+  <div class="section-label">Topic 05</div>
+  <h2>Interrupt Processing</h2>
+
+  <div class="def-box">
+    <strong>Definition</strong>
+    Interrupt Processing — another word for Interrupt is "After." There are basically four types of Interrupt Processing.
+  </div>
+
+  <h3>4 Types of Interrupts</h3>
+  <ul>
+    <li><strong>Program Interrupt</strong> — e.g. Dividing any number by zero</li>
+    <li><strong>Timer Interrupt</strong> → CMOS Battery</li>
+    <li><strong>Input/Output Interrupt</strong></li>
+    <li><strong>Hardware Failure</strong> — Hardware failline</li>
+  </ul>
+
+  <div class="highlight">Note: Dividing any number by zero is a program interrupt!</div>
+</div>
+
+<!-- SECTION 6: DOS COMMANDS -->
+<div class="section" id="s6">
+  <div class="section-label">Topic 06</div>
+  <h2>DOS Commands</h2>
+
+  <div class="def-box">
+    <strong>DOS Commands</strong>
+    Internal DOS Commands: e.g. CH, VER, TIME, DATE, CLS, COPY, DEL, REN, DIR
+  </div>
+
+  <h3>Key DOS Commands</h3>
+  <table>
+    <tr><th>Command</th><th>Meaning</th></tr>
+    <tr><td>CH</td><td>Change directory</td></tr>
+    <tr><td>VER</td><td>Version</td></tr>
+    <tr><td>CLS</td><td>Clear Screen</td></tr>
+    <tr><td>COPY</td><td>Duplicate</td></tr>
+    <tr><td>DEL</td><td>Delete</td></tr>
+    <tr><td>REN</td><td>Rename</td></tr>
+    <tr><td>DIR</td><td>Directory</td></tr>
+    <tr><td>TIME</td><td>Show/set time</td></tr>
+    <tr><td>DATE</td><td>Show/set date</td></tr>
+  </table>
+
+  <h3>Directory Structure</h3>
+  <ul>
+    <li>Directory → Commands: Directory are not enclosed</li>
+    <li>Filename must be obeyed when naming a file</li>
+    <li>File name must be obeyed: Files must have a name (e.g. Favour, a name)</li>
+  </ul>
+
+  <h3>Rules for Naming Files in DOS</h3>
+  <ul>
+    <li>File name must be obeyed when naming a file</li>
+    <li>All must have a name (e.g. Favour)</li>
+    <li>The name of the file must reflect the content of that file (e.g.)</li>
+    <li>File name must start with an alphabet</li>
+  </ul>
+
+  <h3>Tree Structure (Directory)</h3>
+  <p>Root → Kunuka → (Even | Unnamed) → (Unnamed | Sub-directory | Sub-directory)</p>
+</div>
+
+<!-- SECTION 7: Q&A -->
+<div class="section" id="s7">
+  <div class="section-label">Topic 07</div>
+  <h2>Possible Exam Questions &amp; Answers</h2>
+  <p style="margin-bottom:24px;color:var(--muted);font-size:13px">Click each question to reveal the answer.</p>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q01 — Definition</span>Define an Operating System using two definitions.</span></div>
+    <div class="answer">
+      <strong>Definition 1 (Program-based):</strong> An Operating System is an elaborate set of programs developed by a programmer to control all the operations that go on within the computer, to such an extent that it does not require any human intervention. It has three phases: Input, Process, and Output.<br><br>
+      <strong>Definition 2 (Hardware-based):</strong> An Operating System is an Input Unit that translates or converts all the tools to work with into the Computer — RAM (Random Access Memory) and ROM (Read Only Memory). When you boot a system, the ROM calls the OS, tools, editors, compilers, assemblers, and interpreters.
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q02 — Deadlock</span>What is a Deadlock? State the five conditions necessary for a deadlock to occur.</span></div>
+    <div class="answer">
+      <strong>Definition:</strong> A Deadlock is a situation where a group of processes are permanently blocked because each process has acquired a subset of the resources it needs and is waiting for the remaining resources held by others in the same group, making it impossible for any process to proceed.<br><br>
+      <strong>Five Conditions (ALL must be present):</strong>
+      <ul>
+        <li><strong>Mutual Exclusion</strong> — Only one process can use a resource at a time</li>
+        <li><strong>Hold and Wait</strong> — A process holds resources while waiting for others</li>
+        <li><strong>No Preemption</strong> — Resources cannot be forcibly taken away</li>
+        <li><strong>Circular Wait</strong> — Each process waits for a resource held by the next in a circular chain</li>
+        <li><strong>Irreversibility</strong> — The deadlock cannot resolve itself</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q03 — Deadlock</span>What are the four methods of dealing with deadlock?</span></div>
+    <div class="answer">
+      <ul>
+        <li><strong>Prevention</strong> — Eliminate one of the five necessary conditions before it can occur. The OS uses explicit actions to preclude deadlock.</li>
+        <li><strong>Avoidance</strong> — Use algorithms (like Banker's Algorithm) to ensure the system never enters an unsafe state.</li>
+        <li><strong>Detection</strong> — Allow deadlock to occur, then detect it using resource allocation tables or graphs.</li>
+        <li><strong>Recovery</strong> — After detection, resolve by terminating processes or preempting/reallocating resources.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q04 — Banker's Algorithm</span>Explain the Banker's Algorithm and distinguish between Safe and Unsafe states.</span></div>
+    <div class="answer">
+      <strong>Banker's Algorithm:</strong> A deadlock avoidance algorithm used by the OS to determine whether granting a resource request will leave the system in a safe state. It simulates allocation and checks if all processes can still complete.<br><br>
+      <strong>Safe State:</strong> When at least one process can borrow resources, execute to completion, and return resources to the pool — allowing others to proceed. The system can satisfy all future resource requests.<br><br>
+      <strong>Unsafe State:</strong> When none of the processes can get enough resources to complete. Note: An unsafe state does NOT necessarily mean deadlock has occurred — but it could lead to one.<br><br>
+      <strong>Formula:</strong> Need = Maximum Need − Current Loan. If Need ≤ Available resources → process can proceed safely.
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q05 — Memory</span>What is Memory Management? List and briefly explain the types.</span></div>
+    <div class="answer">
+      <strong>Memory Management</strong> is basically subdivided into Old and New techniques:<br><br>
+      <strong>Early (Old) Memory Management:</strong>
+      <ul>
+        <li><strong>Single User Configuration (SVC)</strong> — One user at a time; associated with batch OS like MS-DOS</li>
+        <li><strong>Partition Memory Management</strong> — Memory is divided into fixed partitions</li>
+        <li><strong>Dynamic Memory Management</strong> — Partitions created as needed</li>
+        <li><strong>Relocatable Memory Management</strong> — Programs can be moved in memory</li>
+      </ul>
+      <strong>Recent (New) Memory Management:</strong>
+      <ul>
+        <li><strong>Paged Memory Allocation</strong> — Memory divided into equal-sized pages</li>
+        <li><strong>Demand Paged Memory Allocation</strong> — Pages loaded only when needed</li>
+        <li><strong>Segmented Memory Allocation</strong> — Memory divided by logical segments</li>
+        <li><strong>Segmented/Demand Paged Allocation</strong> — Combination of segmentation and demand paging</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q06 — Memory</span>Explain Page Memory Allocation with an example.</span></div>
+    <div class="answer">
+      <strong>Page Memory Allocation:</strong> Before executing a program, the memory manager: (1) determines the number of pages in the program, (2) locates enough empty page frames in main memory, and (3) loads all the program pages into starter pages.<br><br>
+      Pages are usually mapped in bytes (8 bits = 1 byte). Pages can be non-contiguous — they can be at different physical locations but appear contiguous to the program.<br><br>
+      <strong>Example:</strong> A job with 1100 lines, with page size = 350 lines:
+      <ul>
+        <li>First page: 100 lines</li>
+        <li>Second page: 100 lines</li>
+        <li>Third page: 100 lines</li>
+        <li>Remaining 50 lines → Wasted Space (internal fragmentation)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q07 — SVC</span>What is Single User Configuration (SVC)? State its advantages and disadvantages.</span></div>
+    <div class="answer">
+      <strong>SVC:</strong> Associated with a standalone computer running a batch operating system (e.g. IBM OS/370, FORTRAN, MS-DOS).<br><br>
+      <strong>Characteristics:</strong>
+      <ul>
+        <li>Keeps track of memory</li>
+        <li>Obeys memory policy</li>
+        <li>Allocates memory</li>
+        <li>Performs de-allocation (reclamation) of memory</li>
+      </ul>
+      <strong>Advantages:</strong>
+      <ul>
+        <li>Allocation strategy is generally simple to implement</li>
+        <li>Occupies relatively simple memory space</li>
+        <li>Does not involve complicated housekeeping operations</li>
+      </ul>
+      <strong>Disadvantage:</strong>
+      <ul>
+        <li>Memory may not be fully utilized — leads to wasted space</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q08 — Interrupts</span>What is Interrupt Processing? Name and explain the four types.</span></div>
+    <div class="answer">
+      <strong>Interrupt Processing:</strong> "Another word for Interrupt is After" — it refers to a signal that causes the CPU to suspend its current task and handle another event.<br><br>
+      <strong>Four Types:</strong>
+      <ul>
+        <li><strong>Program Interrupt</strong> — Caused by a software error, e.g. dividing any number by zero</li>
+        <li><strong>Timer Interrupt</strong> — Triggered by a timer/clock (→ CMOS Battery)</li>
+        <li><strong>Input/Output Interrupt</strong> — Caused by I/O devices completing or needing attention</li>
+        <li><strong>Hardware Failure</strong> — Caused by a hardware fault or failure</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q09 — DOS</span>List and explain at least six DOS commands.</span></div>
+    <div class="answer">
+      <ul>
+        <li><strong>CH (CHDIR)</strong> — Change directory: moves between folders</li>
+        <li><strong>VER</strong> — Version: shows the OS version</li>
+        <li><strong>CLS</strong> — Clear Screen: clears the command prompt screen</li>
+        <li><strong>COPY</strong> — Duplicate: copies a file from one location to another</li>
+        <li><strong>DEL</strong> — Delete: removes a file</li>
+        <li><strong>REN</strong> — Rename: renames a file or folder</li>
+        <li><strong>DIR</strong> — Directory: lists all files and folders in current directory</li>
+        <li><strong>TIME</strong> — Shows or sets the system time</li>
+        <li><strong>DATE</strong> — Shows or sets the system date</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q10 — Components</span>What are the four components of a Computer Operating System? Briefly explain the role of each.</span></div>
+    <div class="answer">
+      <ul>
+        <li><strong>Memory Manager</strong> — Controls and tracks all memory allocation and de-allocation; ensures programs get the memory they need</li>
+        <li><strong>Processor Manager</strong> — Manages CPU time; schedules which process gets the CPU and for how long (scheduling)</li>
+        <li><strong>Device Manager</strong> — Manages all hardware devices — printers, disks, keyboards — and their drivers</li>
+        <li><strong>File Manager</strong> — Manages file creation, deletion, reading, writing, and access permissions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q11 — Multi</span>Distinguish between Multi-programming, Multi-processing, and Batch Processing.</span></div>
+    <div class="answer">
+      <strong>Multi-programming:</strong> The process where two or more programs are loaded into memory at the same time. When one program waits (e.g. for I/O), the CPU switches to another. Maximizes CPU utilization.<br><br>
+      <strong>Multi-processing:</strong> Two or more CPUs work together. The same job (task) can be jumping from one CPU to another. Provides true parallel execution.<br><br>
+      <strong>Batch Processing:</strong> Batch means group. Jobs come in as a group (batch) and are processed without user interaction. The system (called a Batch System) processes them sequentially without interruption. Different from multi-programming in that the user submits jobs and leaves — no real-time interaction.
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q12 — Dining</span>Describe the Dining Philosophers Problem and explain its relevance to OS concepts.</span></div>
+    <div class="answer">
+      <strong>The Dining Philosophers Problem:</strong> A classic synchronization problem in OS. Imagine 5 philosophers seated at a round table. Each philosopher alternates between thinking and eating. Between each pair of philosophers is one fork — so 5 forks total. To eat, a philosopher needs TWO forks (left and right).<br><br>
+      <strong>The Problem:</strong> If all philosophers pick up their left fork simultaneously, each waits for the right fork — held by their neighbour — creating a deadlock. No one can eat.<br><br>
+      <strong>Relevance:</strong> Illustrates deadlock (circular wait) and resource allocation in concurrent systems. Solutions include: letting only 4 philosophers sit at once, using asymmetric rules (some pick right fork first), or using a semaphore/monitor to arbitrate.
+    </div>
+  </div>
+
+  <div class="qa-block" onclick="this.classList.toggle('open')">
+    <div class="question"><span><span class="qnum">Q13 — Rules</span>State the rules for naming files in DOS.</span></div>
+    <div class="answer">
+      <ul>
+        <li>The file name must start with an alphabet</li>
+        <li>The name of the file must reflect the content of that file</li>
+        <li>Filenames must be obeyed when naming</li>
+        <li>Filenames are not enclosed in brackets (unlike some directory commands)</li>
+        <li>Use characters that DOS accepts — avoid special characters</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div style="padding:48px 24px 0;border-top:1px solid #1a1a1a;margin-top:48px;max-width:900px;margin-left:auto;margin-right:auto">
+  <p style="font-family:var(--mono);font-size:11px;color:var(--muted);text-align:center;letter-spacing:0.1em">GENERATED FROM YOUR CLASS NOTES + TEXTBOOK · 300L IT · GOODLUCK TUESDAY</p>
+</div>
+
+</main>
+
+<script>
+// All qa-blocks already toggle via onclick; no extra script needed
+// But let's add keyboard accessibility
+document.querySelectorAll('.qa-block').forEach(block => {
+  block.setAttribute('tabindex','0');
+  block.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' ') block.classList.toggle('open');
+  });
+});
+</script>
+
+</body>
+</html>
