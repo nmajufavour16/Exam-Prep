@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Entrepreneurship — Exam Notes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Literata:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+  --bg: #0e0e12;
+  --surface: #16161d;
+  --surface2: #1d1d26;
+  --border: #2a2a38;
+  --accent: #7c6af7;
+  --accent2: #f7a26a;
+  --green: #5af7a2;
+  --text: #e8e8f0;
+  --muted: #7070a0;
+  --mono: 'Syne', sans-serif;
+  --serif: 'Literata', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+header {
+  background: linear-gradient(135deg, #13131a 0%, #1a1428 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 24px;
+  position: sticky; top: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+}
+header h1 { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.hbadge { font-family: var(--mono); font-size: 10px; background: var(--accent2); color: #0e0e12; padding: 3px 10px; font-weight: 700; letter-spacing: 0.1em; }
+
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  display: flex; overflow-x: auto; gap: 0;
+}
+nav a {
+  font-family: var(--mono); font-size: 10px; text-decoration: none; color: var(--muted);
+  padding: 11px 14px; white-space: nowrap; border-right: 1px solid var(--border);
+  transition: all 0.15s; text-transform: uppercase; letter-spacing: 0.06em;
+}
+nav a:hover { background: var(--accent); color: #fff; }
+
+.wrap { max-width: 860px; margin: 0 auto; padding: 0 20px 80px; }
+
+.ch-header { margin-top: 52px; padding: 22px 0 16px; border-top: 2px solid var(--accent); }
+.ch-label { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent2); margin-bottom: 6px; }
+h2 { font-family: var(--mono); font-size: 22px; font-weight: 800; line-height: 1.2; color: var(--text); }
+
+.sec { margin-top: 28px; }
+h3 { font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--green); margin-bottom: 10px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+
+.def { background: var(--surface2); border-left: 3px solid var(--accent); padding: 14px 18px; margin: 12px 0; font-size: 14px; line-height: 1.75; }
+.def strong { font-family: var(--mono); font-size: 10px; display: block; color: var(--accent); margin-bottom: 5px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+.hl { border-left: 4px solid var(--accent2); background: rgba(247,162,106,0.08); padding: 10px 16px; margin: 12px 0; font-size: 13px; color: var(--accent2); font-family: var(--mono); }
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+@media(max-width:580px){ .g2 { grid-template-columns: 1fr; } }
+
+.card { background: var(--surface); border: 1px solid var(--border); padding: 14px; }
+.card h4 { font-family: var(--mono); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent2); margin-bottom: 8px; }
+.card p, .card li { font-size: 13.5px; }
+
+ul { list-style: none; margin: 8px 0 14px; }
+ul li { padding: 5px 0 5px 18px; position: relative; color: #c8c8e0; border-bottom: 1px solid #1e1e2a; font-size: 14px; }
+ul li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-size: 14px; top: 4px; }
+
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+th { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--surface2); color: var(--accent); padding: 9px 12px; text-align: left; border: 1px solid var(--border); }
+td { padding: 8px 12px; border: 1px solid var(--border); color: #c8c8e0; vertical-align: top; }
+tr:nth-child(even) td { background: var(--surface); }
+
+p { color: #c0c0d8; margin-bottom: 10px; font-size: 14px; }
+
+/* Q&A */
+.qa-wrap { margin-top: 8px; }
+.qa { border: 1px solid var(--border); margin-bottom: 6px; }
+.q { padding: 12px 16px; background: var(--surface); cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; font-family: var(--mono); font-size: 12px; color: var(--text); line-height: 1.5; }
+.qtag { font-size: 9px; color: var(--accent); display: block; margin-bottom: 3px; letter-spacing: 0.15em; text-transform: uppercase; }
+.q-icon { flex-shrink: 0; width: 22px; height: 22px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-family: var(--mono); }
+.a { display: none; padding: 14px 16px; background: var(--surface2); border-top: 1px solid var(--border); font-size: 14px; line-height: 1.8; color: #c8c8e0; }
+.a ul { margin: 8px 0; }
+.a strong { color: var(--accent2); }
+.qa.open .a { display: block; }
+.qa.open .q-icon::after { content: '−'; }
+.q-icon::after { content: '+'; }
+
+.notice { font-family: var(--mono); font-size: 11px; color: var(--muted); text-align: center; padding: 40px 0 0; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>IT Entrepreneurship — Complete Exam Notes</h1>
+  <span class="hbadge">300L · IT · Exam Ready</span>
+</header>
+
+<nav>
+  <a href="#s1">Entrepreneurship</a>
+  <a href="#s2">Creativity &amp; Innovation</a>
+  <a href="#s3">New Venture Creation</a>
+  <a href="#s4">Resource Mobilisation</a>
+  <a href="#s5">Business Registration</a>
+  <a href="#s6">IP &amp; Regulations</a>
+  <a href="#s7">Product Development</a>
+  <a href="#s8">Legal &amp; Ethics</a>
+  <a href="#s9">Business Plan</a>
+  <a href="#s10">Risks</a>
+  <a href="#qa">Q&amp;A</a>
+</nav>
+
+<div class="wrap">
+
+<!-- ══════════════════════ SECTION 1 ══════════════════════ -->
+<div id="s1">
+  <div class="ch-header">
+    <div class="ch-label">Topic 01</div>
+    <h2>Introduction to IT Entrepreneurship</h2>
+  </div>
+
+  <div class="sec">
+    <h3>What is Entrepreneurship?</h3>
+    <div class="def">
+      <strong>Definition</strong>
+      Entrepreneurship is the process of identifying opportunities, taking risks and organising resources to create new ventures. It drives technological advancement and economic growth. IT Entrepreneurship specifically focuses on using technology and digital innovation to build businesses.
+    </div>
+    <ul>
+      <li>Entrepreneurship brings about technological advancement</li>
+      <li>It promotes digital inclusive initiatives</li>
+      <li>It supports environmentally friendly technology</li>
+      <li>It helps develop usable and sustainable technology</li>
+      <li>It involves the disposal and management of electronic waste</li>
+      <li>It requires adherence to legal and ethical compliance</li>
+    </ul>
+
+    <h3>Characteristics of Entrepreneurship</h3>
+    <div class="g2">
+      <div class="card"><h4>1. Vision &amp; Goal Oriented</h4><p>Entrepreneurs have a clear vision of what they want to achieve and set specific goals to get there.</p></div>
+      <div class="card"><h4>2. Problem-Solving Skill</h4><p>They identify problems in the market and develop solutions through products or services.</p></div>
+      <div class="card"><h4>3. Persistence &amp; Resilience</h4><p>They persist through failure and bounce back — resilience is a core entrepreneurial trait.</p></div>
+      <div class="card"><h4>4. Good Leadership Ability</h4><p>They can inspire, motivate and lead teams toward a shared vision.</p></div>
+      <div class="card"><h4>5. Creative and Innovative</h4><p>They constantly generate new ideas and find better ways to solve problems.</p></div>
+    </div>
+
+    <h3>Intrapreneurship</h3>
+    <div class="def">
+      <strong>Definition</strong>
+      Intrapreneurship involves the entrepreneurial activities carried out within an existing organisation by the employees — existing within an organisation. Employees act like entrepreneurs inside the company to drive innovation.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 2 ══════════════════════ -->
+<div id="s2">
+  <div class="ch-header">
+    <div class="ch-label">Topic 02 — 27/01/2026</div>
+    <h2>Creativity and Innovation</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Definitions</h3>
+    <div class="def">
+      <strong>Creativity</strong>
+      Creativity is the ability of an individual to generate new ideas, think outside the box and come out with conclusions of innovative ideas.
+    </div>
+    <div class="def">
+      <strong>Innovation</strong>
+      Innovation is implementing the creative idea and bringing it to reality to bring value to society. While creativity is about generating ideas, innovation is about executing them.
+    </div>
+
+    <div class="hl">KEY: Creativity = generating new ideas. Innovation = implementing those ideas to bring value to society.</div>
+
+    <h3>Relationship Between Creativity, Innovation &amp; Entrepreneurship</h3>
+    <ul>
+      <li>Creativity is powered by entrepreneurship — it identifies opportunity, takes risks and organises resources to create new ventures</li>
+      <li>Without creativity, there is no innovation; without innovation, there is no entrepreneurship</li>
+      <li>Entrepreneurs are the bridge between a creative idea and its market delivery</li>
+    </ul>
+
+    <h3>Sources of Business and IT Ideas</h3>
+    <table>
+      <tr><th>#</th><th>Source</th><th>Explanation</th></tr>
+      <tr><td>1</td><td>Personal Experience / Observation</td><td>Ideas from problems you've personally faced or observed in daily life</td></tr>
+      <tr><td>2</td><td>Market Need and Customer Problem</td><td>Gaps in the market — unmet customer needs become business opportunities</td></tr>
+      <tr><td>3</td><td>Brainstorming Analysis</td><td>Group or individual sessions to generate ideas freely without judgment</td></tr>
+      <tr><td>4</td><td>SWOT Analysis</td><td>Through SWOT (Strengths, Weaknesses, Opportunities, Threats) analysis you can identify innovative opportunities</td></tr>
+      <tr><td>5</td><td>Technological Leveraging</td><td>Analysing a new technology can reveal inefficient processes it can address and replace</td></tr>
+      <tr><td>6</td><td>Process Flowchart Analysis</td><td>Mapping existing processes to identify bottlenecks and opportunities for improvement</td></tr>
+    </table>
+
+    <div class="hl">EXAM TIP: Through SWOT analysis, you would be able to bring up innovative ideas.</div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 3 ══════════════════════ -->
+<div id="s3">
+  <div class="ch-header">
+    <div class="ch-label">Topic 03</div>
+    <h2>New Venture Creation</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Definition</h3>
+    <div class="def">
+      <strong>New Venture Creation</strong>
+      New Venture Creation (exam) is a structured process of transforming business ideas into a fully operational enterprise. It involves identifying business ideas, mobilising resources, planning, launching a business and managing growth — and uncertainty created to provide products.
+    </div>
+
+    <h3>Stages of New Venture Creation</h3>
+    <table>
+      <tr><th>Stage</th><th>Activity</th></tr>
+      <tr><td>I</td><td>Idea Generation — identify a business/IT opportunity</td></tr>
+      <tr><td>II</td><td>Feasibility Analysis — Market, Technical, Financial, Legal</td></tr>
+      <tr><td>III</td><td>Resource Mobilisation — gather capital, human resources, equipment</td></tr>
+      <tr><td>IV</td><td>Business Plan Development — write the formal business plan</td></tr>
+      <tr><td>V</td><td>Legal Business Formation — register the business (CAC)</td></tr>
+      <tr><td>VI</td><td>Business Launch — go to market</td></tr>
+      <tr><td>VII</td><td>Product Development and Innovation</td></tr>
+      <tr><td>VIII</td><td>Product Development and Testing</td></tr>
+      <tr><td>IX</td><td>Market Extension and Expansion</td></tr>
+    </table>
+
+    <h3>Business Strategy</h3>
+    <div class="def">
+      <strong>Definition</strong>
+      A Business Strategy is a long-term plan developed by a company to gain a competitive advantage, to accomplish its set goals, to compete, grow and to succeed in the market trend.
+    </div>
+    <ul>
+      <li>Helps a company to compete, grow and succeed in the market</li>
+      <li>It is concerned with technological advancement</li>
+      <li>Involves market research, market trends and business planning</li>
+    </ul>
+
+    <h3>Importance of Business Strategy</h3>
+    <ul>
+      <li>Attracts customers</li>
+      <li>Ensures different products and practices from competitors</li>
+      <li>Ensures long-term sustainability</li>
+      <li>Provides direction and focus to the organisation</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 4 ══════════════════════ -->
+<div id="s4">
+  <div class="ch-header">
+    <div class="ch-label">Topic 04</div>
+    <h2>Resource Mobilisation</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Definition</h3>
+    <div class="def">
+      <strong>Resource Mobilisation</strong>
+      Resource Mobilisation includes the gathering of capital, human resources, equipment, office space and supplies needed to start and run a business. It also entails outsourcing experts or legal practitioners.
+    </div>
+
+    <h3>Sources of Resources</h3>
+    <table>
+      <tr><th>Source</th><th>Description</th></tr>
+      <tr><td>Personal Savings</td><td>Using your own money — lowest risk, no interest, retains full ownership</td></tr>
+      <tr><td>Bank Loan</td><td>Borrowing from a financial institution — requires collateral and repayment with interest</td></tr>
+      <tr><td>Angel Investors</td><td>Wealthy individuals who provide capital to start a business in exchange for ownership, equity or convertible debt. e.g. Bezos was an angel investor to Google.</td></tr>
+      <tr><td>Crowdfunding</td><td>Raising small amounts of money from a large pool of people (usually online)</td></tr>
+      <tr><td>Venture Capital</td><td>Institutional investors who fund high-growth startups in exchange for equity</td></tr>
+    </table>
+
+    <div class="hl">NOTE: Angel investors provide capital to start a business in exchange of ownership, equity or convertible debt. Bezos was an angel investor to Google.</div>
+
+    <h3>Types of Capital</h3>
+    <div class="g2">
+      <div class="card"><h4>Debt Capital</h4><p>Money borrowed that must be repaid with interest — e.g. bank loans. You keep ownership but owe repayment.</p></div>
+      <div class="card"><h4>Equity Capital</h4><p>Money raised by giving up ownership/shares — e.g. angel investors, venture capital. No repayment but you lose some control.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 5 ══════════════════════ -->
+<div id="s5">
+  <div class="ch-header">
+    <div class="ch-label">Topic 05</div>
+    <h2>Legal Business Formation &amp; Registration</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Types of Business Formation</h3>
+    <div class="g2">
+      <div class="card"><h4>Sole Proprietorship</h4><p>Owned and run by one person. Simplest form. Owner has full control but is personally liable for all debts.</p></div>
+      <div class="card"><h4>Partnership</h4><p>Two or more people share ownership. Partners share profits, losses and liability. Governed by a partnership agreement.</p></div>
+      <div class="card"><h4>Limited (Private) Company</h4><p>Separate legal entity from its owners (shareholders). Limited liability — owners only lose what they invested. Most common for IT startups.</p></div>
+      <div class="card"><h4>Foundation / Non-profit</h4><p>Established not for profit but for a social, educational or charitable mission. Surplus reinvested into the mission.</p></div>
+    </div>
+
+    <h3>Business Registration Process</h3>
+    <div class="def">
+      <strong>CAC — Corporate Affairs Commission</strong>
+      Every IT venture must be legally registered under an appropriate regulatory agency — in Nigeria, the CAC (Corporate Affairs Commission). Legal registration ensures recognition as a legal entity.
+    </div>
+    <ul>
+      <li>Register the business with the CAC</li>
+      <li>Obtain a Business Identification Number (BIN)</li>
+      <li>Begin the identification/foundation process</li>
+      <li>Registration gives the ability to enter contracts, access funding and banking services</li>
+      <li>Also provides legal protection and legitimacy</li>
+    </ul>
+
+    <h3>Business Regulations &amp; Licensing</h3>
+    <div class="def">
+      <strong>Why Registration Matters</strong>
+      Every IT venture must be legally required under the appropriate regulatory agency (i.e. CAC). Legal registration ensures recognition as a legal entity. It also ensures the ability to enter into contracts, access funding and banking services, and receive legal protections.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 6 ══════════════════════ -->
+<div id="s6">
+  <div class="ch-header">
+    <div class="ch-label">Topic 06</div>
+    <h2>Intellectual Property &amp; Legal Regulations</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Intellectual Property (IP) — Four Types</h3>
+    <div class="g2">
+      <div class="card">
+        <h4>a) Copyright</h4>
+        <p>Protects software code, digital content, websites and databases. Ensures unauthorized persons cannot use your material without permission.</p>
+      </div>
+      <div class="card">
+        <h4>b) Patent</h4>
+        <p>Protects inventions and technology innovations from theft. Gives the inventor exclusive rights to use, sell or license the invention for a set period.</p>
+      </div>
+      <div class="card">
+        <h4>c) Trademark</h4>
+        <p>Protects brand names, logos and symbols. Ensures no one else can use your brand identity in commerce.</p>
+      </div>
+      <div class="card">
+        <h4>d) Trade Secret</h4>
+        <p>Protects confidential business information and trade processes from competitors. E.g. Coca-Cola's formula. Unauthorized copying and revenue losses are prevented.</p>
+      </div>
+    </div>
+
+    <h3>Data Protection and Privacy Laws</h3>
+    <div class="def">
+      <strong>Data Protection</strong>
+      IT businesses collect and process customer data — laws regulate how such data must be handled. It ensures that any data collected comes with consent. Failure to abide by these laws may lead to fines, legal actions and reputational damage.
+    </div>
+
+    <h3>Cybercrime and Fraud Regulations</h3>
+    <div class="def">
+      <strong>Cybercrime Laws</strong>
+      Cybercrime addresses laws such as hacking, identity theft, online fraud and financial crimes. IT entrepreneurship must ensure that their system is secured and comply with cybersecurity regulations.
+    </div>
+
+    <h3>Consumer Protection Laws</h3>
+    <ul>
+      <li>These laws protect consumers from false advertising</li>
+      <li>Misleading information about products/services</li>
+      <li>Unfair pricing and deceptive business practices</li>
+      <li>IT businesses must be transparent about what their product does and does not do</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 7 ══════════════════════ -->
+<div id="s7">
+  <div class="ch-header">
+    <div class="ch-label">Topic 07</div>
+    <h2>Product Development and Innovation Process</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Key Definitions</h3>
+    <div class="def">
+      <strong>Product Innovation</strong>
+      A process of creating and introducing new and improved products in the market, or improving already existing products.
+    </div>
+    <div class="def">
+      <strong>Product Development</strong>
+      The process of taking a product from the idea created to the market.
+    </div>
+
+    <h3>Stages Involved in Product Development</h3>
+    <table>
+      <tr><th>Stage</th><th>Name</th><th>Details</th></tr>
+      <tr><td>a</td><td>Idea Generation</td><td>Generate as many ideas as possible — brainstorming, SWOT, market research</td></tr>
+      <tr><td>b</td><td>Idea Screening</td><td>Evaluate ideas for viability; can be done by experts in the field or yourself</td></tr>
+      <tr><td>c</td><td>Go into Product Development</td><td>Build the product — design, prototype, code</td></tr>
+      <tr><td>d</td><td>Testing and Validation</td><td>Test the product to verify it meets user needs and works as intended</td></tr>
+    </table>
+
+    <h3>Role of Technology in Product Development</h3>
+    <ul>
+      <li>Technology facilitates rapid development</li>
+      <li>Technology can be cross-applied to experts in related fields</li>
+      <li>Existing products can be redesigned using technology to add new value</li>
+      <li>Technology enables terms in ideation and federal development</li>
+    </ul>
+
+    <h3>User-Centred Design (UCD)</h3>
+    <div class="def">
+      <strong>User-Centred Design</strong>
+      Focuses on attaining users' needs and experience. The five steps are: Empathize → Define → Ideate → Prototype → Execute (test).
+    </div>
+    <table>
+      <tr><th>Step</th><th>Action</th></tr>
+      <tr><td>Empathize</td><td>Understand the user's problems, needs and context deeply</td></tr>
+      <tr><td>Define</td><td>Clearly define the problem statement based on research</td></tr>
+      <tr><td>Ideate</td><td>Generate multiple creative solutions</td></tr>
+      <tr><td>Prototype</td><td>Build a basic model/mockup of the solution</td></tr>
+      <tr><td>Execute / Test</td><td>Test prototype with real users; gather feedback</td></tr>
+    </table>
+
+    <h3>Minimum Viable Product (MVP)</h3>
+    <div class="def">
+      <strong>MVP</strong>
+      Has to do with bringing a small sample of a product to test assumptions and gather feedback and findings. It includes product testing and improvement. MVP is about validating ideas with minimum effort before full development.
+    </div>
+
+    <h3>Three Categories of MVP Testing</h3>
+    <div class="g2">
+      <div class="card"><h4>1. User Testing</h4><p>Testing the product with real target users to assess usability and satisfaction.</p></div>
+      <div class="card"><h4>2. Beta Testing</h4><p>Software testing where a nearly finished product is released to the community outside the development team to gather real-world feedback.</p></div>
+      <div class="card"><h4>3. Performance Testing</h4><p>Testing how the product performs under expected load, stress and speed conditions.</p></div>
+    </div>
+
+    <h3>Stage VIII — Product Development and Testing</h3>
+    <div class="def">
+      <strong>Stage VIII</strong>
+      Involves control and uses the tendencies to make improvements where needed. It helps reduce the risk of failure. It uses a cost/beta test approach — entails monitoring performance, improving the production process.
+    </div>
+
+    <h3>Stage IX — Market Extension and Expansion</h3>
+    <div class="def">
+      <strong>Stage IX</strong>
+      Entails monitoring performance, improving the production, and expanding into new markets. It involves externalising the product and listening to market feedback to serve aligned customers and fill value gaps still present.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 8 ══════════════════════ -->
+<div id="s8">
+  <div class="ch-header">
+    <div class="ch-label">Topic 08 — 16/02/2025</div>
+    <h2>Legal Issues and Business Ethics in IT Entrepreneurship</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Overview</h3>
+    <div class="def">
+      <strong>Context</strong>
+      Entrepreneurship operates within a legal and ethical environment that regulates business activities and protects stakeholders. As a digital business expert globally, compliance with legal standards and adherence to ethical principles have become critical for sustainability and reputation growth.
+    </div>
+
+    <h3>Concept of Business Ethics</h3>
+    <div class="def">
+      <strong>Business Ethics</strong>
+      Business ethics refers to the moral principles and standards that guide the behaviours in business. In IT Entrepreneurship, ethics refers to the responsible use of technology, fair dealings with customers, protection of user data and transparency in digital transactions.
+    </div>
+
+    <h3>5 Principles of Business Ethics</h3>
+    <table>
+      <tr><th>#</th><th>Principle</th><th>Meaning</th></tr>
+      <tr><td>1</td><td>Integrity</td><td>Being honest in all business dealings — say what you mean and do what you say</td></tr>
+      <tr><td>2</td><td>Accountability</td><td>Taking responsibility for your actions and decisions</td></tr>
+      <tr><td>3</td><td>Transparency</td><td>Openness — void of secrecy. Being clear about how your business operates</td></tr>
+      <tr><td>4</td><td>Respect for Privacy</td><td>Protecting user data and not misusing personal information</td></tr>
+      <tr><td>5</td><td>Social Responsibility</td><td>Contributing positively to society beyond just making profit</td></tr>
+    </table>
+
+    <h3>Legal Issues in IT Entrepreneurship</h3>
+    <p>Legal issues refer to laws and regulations governing business activities in the digital environment. Key areas include:</p>
+    <ul>
+      <li><strong>Data Protection and Privacy Laws</strong> — regulate how user data is collected and processed</li>
+      <li><strong>Cybercrime and Fraud Regulations</strong> — hacking, identity theft, online fraud, financial crimes</li>
+      <li><strong>Consumer Protection Laws</strong> — false advertising, misleading information</li>
+      <li><strong>Intellectual Property Laws</strong> — copyright, patent, trademark, trade secret</li>
+      <li><strong>Business Regulations &amp; Licensing</strong> — CAC registration, compliance</li>
+    </ul>
+
+    <h3>Ethical Issues in IT Entrepreneurship</h3>
+    <div class="def">
+      <strong>Ethical Challenges IT Entrepreneurs Face</strong>
+      Beyond legal compliance in IT, they face several ethical issues including: data privacy and surveillance; collecting excessive user data or misusing customer information is unethical; quality lag in digital services; and transparency in digital marketing.
+    </div>
+
+    <h3>What Entrepreneurs Must Avoid</h3>
+    <div class="g2">
+      <div class="card"><h4>Fake Reviews</h4><p>Creating or paying for fake positive reviews of your product is deceptive and unethical.</p></div>
+      <div class="card"><h4>Clickbait Advertising</h4><p>Using sensational, exaggerated or misleading headlines to attract attention. Violates transparency principles.</p></div>
+      <div class="card"><h4>Software Piracy &amp; Plagiarism</h4><p>Using unlicensed software or copying code without permission. A legal and ethical violation.</p></div>
+      <div class="card"><h4>Excessive Data Collection</h4><p>Collecting more user data than necessary or misusing customer information for profit is unethical.</p></div>
+    </div>
+
+    <h3>Corporate Social Responsibility (CSR)</h3>
+    <div class="def">
+      <strong>CSR</strong>
+      Corporate Social Responsibility refers to a company's social obligation to contribute positively to the society. It is a company's social obligation to contribute to society beyond its core business activities — e.g. environmental initiatives, community development.
+    </div>
+
+    <h3>Transparency in Digital Marketing</h3>
+    <p>Entrepreneurs must be transparent in digital marketing. This means: clearly stating what product/service does, being honest about pricing, not using manipulative advertising techniques, and disclosing sponsored content and partnerships.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 9 ══════════════════════ -->
+<div id="s9">
+  <div class="ch-header">
+    <div class="ch-label">Topic 09</div>
+    <h2>Business Plan Development</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Definition</h3>
+    <div class="def">
+      <strong>Business Plan</strong>
+      A Business Plan is a written document that outlines the ideas, strategy and financial projections of a company. It addresses the business's development, the policies, components and how the business will be run.
+    </div>
+
+    <h3>Feasibility Analysis (Before the Business Plan)</h3>
+    <div class="g2">
+      <div class="card"><h4>Market Feasibility</h4><p>Is there a market for this product? Who are the customers? Is the market large enough?</p></div>
+      <div class="card"><h4>Technical Feasibility</h4><p>Has to do with the technology aspect — can the technology required actually be built or acquired?</p></div>
+      <div class="card"><h4>Financial Feasibility</h4><p>Do we have enough capital? Can the business generate profit? What is the break-even point?</p></div>
+      <div class="card"><h4>Legal Feasibility</h4><p>Are there any legal barriers? Can the business be legally registered and operated?</p></div>
+    </div>
+
+    <h3>Components of a Business Plan</h3>
+    <table>
+      <tr><th>Component</th><th>Description</th></tr>
+      <tr><td>a) Company Description</td><td>Who you are, what you do, your mission, vision and values</td></tr>
+      <tr><td>b) Market Analysis</td><td>Target market, market size, competitors, market trends</td></tr>
+      <tr><td>c) Product Description</td><td>What product/service you offer, its features and unique value</td></tr>
+      <tr><td>d) Operational Plan</td><td>How the business will run day-to-day — processes, location, team</td></tr>
+      <tr><td>e) Management Structure</td><td>Organisational chart — who runs what, roles and responsibilities</td></tr>
+      <tr><td>f) Finance</td><td>Startup costs, revenue projections, profit/loss forecast, funding needs</td></tr>
+    </table>
+
+    <h3>Reasons for Business Plan Development</h3>
+    <ul>
+      <li>It attracts investors — demonstrates seriousness and potential</li>
+      <li>It secures a bank loan — banks require a business plan before lending</li>
+      <li>It guides the business operations — a roadmap for decisions</li>
+      <li>It reduces risk — forces you to think through problems before they occur</li>
+      <li>It brings about economic development</li>
+      <li>It brings about innovation</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════ SECTION 10 ══════════════════════ -->
+<div id="s10">
+  <div class="ch-header">
+    <div class="ch-label">Topic 10</div>
+    <h2>Risks in New Ventures</h2>
+  </div>
+
+  <div class="sec">
+    <h3>Five Types of Risks</h3>
+    <div class="g2">
+      <div class="card"><h4>1. Financial Risk</h4><p>Risk of running out of money — poor cash flow, unexpected costs, failure to generate revenue.</p></div>
+      <div class="card"><h4>2. Market Risk</h4><p>Risk that the market won't respond — low demand, stiff competition, changing customer preferences.</p></div>
+      <div class="card"><h4>3. Operational Risk</h4><p>Risk from internal processes — system failures, supply chain issues, staffing problems.</p></div>
+      <div class="card"><h4>4. Legal Risk</h4><p>Risk of non-compliance — lawsuits, regulatory fines, IP violations, contract disputes.</p></div>
+      <div class="card"><h4>5. Technological Risk</h4><p>Risk from technology failure, obsolescence, cybersecurity breaches or failure to adopt new tech.</p></div>
+    </div>
+
+    <h3>Importance of Entrepreneurship (Exam)</h3>
+    <ul>
+      <li>It brings about creation of new businesses and jobs</li>
+      <li>It brings about economic development</li>
+      <li>It brings about innovation and advancement</li>
+      <li>It reduces poverty by creating employment</li>
+      <li>It attracts secure loans and investment</li>
+      <li>It guides business operations through strategy</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════════ Q&A ══════════════════════ -->
+<div id="qa">
+  <div class="ch-header">
+    <div class="ch-label">Exam Prep — 25 Questions</div>
+    <h2>Possible Exam Questions &amp; Answers</h2>
+  </div>
+  <p style="margin-bottom:20px;color:var(--muted);font-family:var(--mono);font-size:11px;letter-spacing:0.08em">TAP EACH QUESTION TO REVEAL THE ANSWER</p>
+
+  <div class="qa-wrap">
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q01 — Definition</span>What is Entrepreneurship? Distinguish between Entrepreneurship and Intrapreneurship.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Entrepreneurship:</strong> The process of identifying opportunities, taking risks and organising resources to create new ventures. It drives technological advancement and economic growth.<br><br><strong>Intrapreneurship:</strong> Involves the entrepreneurial activities carried out within an existing organisation by the employees. Employees act like entrepreneurs inside the company — launching new products, innovating processes — without leaving the organisation.<br><br><strong>Key difference:</strong> Entrepreneurship = starting a new business from scratch. Intrapreneurship = entrepreneurial activity within an already existing organisation.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q02 — Creativity</span>Distinguish between Creativity and Innovation. How do they relate to Entrepreneurship?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Creativity:</strong> The ability of an individual to generate new ideas, think outside the box and come out with conclusions of innovative ideas.<br><br><strong>Innovation:</strong> Implementing the creative idea and bringing it to reality to bring value to society.<br><br><strong>Relationship:</strong> Creativity is generating the idea; innovation is executing it. Creativity is powered by entrepreneurship — which identifies opportunity, takes risks and organises resources to create new ventures. Without creativity there is no innovation; without innovation, no entrepreneurship.<br><br><strong>Key formula:</strong> Creativity → Innovation → Entrepreneurship → New Venture.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q03 — Characteristics</span>State and explain FIVE characteristics of Entrepreneurship.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Vision and Goal Oriented</strong> — Entrepreneurs have a clear vision of what they want to achieve and set specific goals</li><li><strong>Problem-Solving Skill</strong> — They identify problems in the market and develop solutions through products or services</li><li><strong>Persistence and Resilience</strong> — They persist through failure and bounce back; resilience is core</li><li><strong>Good Leadership Ability</strong> — They can inspire, motivate and lead teams toward a shared vision</li><li><strong>Creative and Innovative</strong> — They constantly generate new ideas and find better ways to solve problems</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q04 — Ideas</span>List and explain FIVE sources of business and IT ideas.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Personal Experience/Observation</strong> — Ideas from problems you've personally faced or observed in daily life</li><li><strong>Market Need and Customer Problem</strong> — Gaps in the market; unmet customer needs become business opportunities</li><li><strong>Brainstorming Analysis</strong> — Group or individual sessions to freely generate ideas without judgment</li><li><strong>SWOT Analysis</strong> — Through SWOT (Strengths, Weaknesses, Opportunities, Threats) you identify innovative opportunities and problems in the market</li><li><strong>Technological Leveraging</strong> — Analysing a new technology reveals inefficient processes it can address; new tech creates new business models</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q05 — New Venture</span>What is New Venture Creation? List the stages involved.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>New Venture Creation:</strong> A structured process of transforming business ideas into a fully operational enterprise — identifying ideas, mobilising resources, planning, launching and managing growth.<br><br><strong>Stages:</strong><ul><li>Stage I — Idea Generation</li><li>Stage II — Feasibility Analysis (Market, Technical, Financial, Legal)</li><li>Stage III — Resource Mobilisation</li><li>Stage IV — Business Plan Development</li><li>Stage V — Legal Business Formation (CAC registration)</li><li>Stage VI — Business Launch</li><li>Stage VII — Product Development and Innovation</li><li>Stage VIII — Product Development and Testing</li><li>Stage IX — Market Extension and Expansion</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q06 — Business Strategy</span>Define Business Strategy. State its importance to an IT business.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Business Strategy:</strong> A long-term plan developed by a company to gain a competitive advantage, accomplish its set goals, compete, grow and succeed in the market trend.<br><br><strong>Importance:</strong><ul><li>Attracts customers by differentiating from competitors</li><li>Ensures different products and practices from competitors</li><li>Ensures long-term sustainability</li><li>Provides direction and focus to the organisation</li><li>Helps navigate market trends and technological changes</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q07 — Resources</span>What is Resource Mobilisation? List and explain FOUR sources of resources for an IT startup.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Resource Mobilisation:</strong> The gathering of capital, human resources, equipment, office space and supplies needed to start and run a business. Also includes outsourcing experts or legal practitioners.<br><br><strong>Sources:</strong><ul><li><strong>Personal Savings</strong> — Using your own money; no interest, full ownership retained</li><li><strong>Bank Loan</strong> — Borrowing from a financial institution; requires collateral and repayment with interest</li><li><strong>Angel Investors</strong> — Wealthy individuals who provide capital in exchange for ownership, equity or convertible debt. e.g. Bezos was an angel investor to Google</li><li><strong>Crowdfunding</strong> — Raising small amounts from a large number of people, usually online</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q08 — Formation</span>List the types of legal business formation and explain each. What is the role of the CAC?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Types:</strong><ul><li><strong>Sole Proprietorship</strong> — One owner, full control, full personal liability</li><li><strong>Partnership</strong> — Two or more owners share profits, losses and liability</li><li><strong>Limited (Private) Company</strong> — Separate legal entity, limited liability, most common for IT startups</li><li><strong>Foundation/Non-profit</strong> — Social or charitable mission; surplus reinvested</li></ul><strong>Role of CAC:</strong> The Corporate Affairs Commission is Nigeria's regulatory body for business registration. Every IT venture must register with the CAC to be recognised as a legal entity — enabling it to enter contracts, access funding, banking services and receive legal protections.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q09 — IP</span>Define Intellectual Property. Explain the FOUR types with examples relevant to IT.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Intellectual Property:</strong> Legal protections granted to creators for their original works, inventions and brand identities.<br><br><ul><li><strong>Copyright</strong> — Protects software code, digital content, websites and databases. Ensures unauthorized persons cannot use your material without permission. e.g. source code of an app</li><li><strong>Patent</strong> — Protects inventions and technology innovations from theft. e.g. a unique algorithm or hardware design</li><li><strong>Trademark</strong> — Protects brand names, logos and symbols. e.g. Google's logo or Apple's apple icon</li><li><strong>Trade Secret</strong> — Protects confidential business information. e.g. Facebook's recommendation algorithm, Coca-Cola's formula</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q10 — Data</span>What are Data Protection and Privacy Laws? Why are they important for IT entrepreneurs?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Data Protection Laws:</strong> Regulations governing how IT businesses collect, store and process customer data. They ensure that any data collected comes with the user's consent.<br><br><strong>Importance:</strong><ul><li>Failure to comply may lead to fines, legal actions and reputational damage</li><li>Protects users from misuse of their personal information</li><li>Builds customer trust — users are more likely to use your product if they know their data is safe</li><li>Prevents unauthorized data collection and illegal sale of user data</li></ul><strong>Examples:</strong> Nigeria's NDPR (Nigeria Data Protection Regulation); EU's GDPR.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q11 — Cybercrime</span>Explain Cybercrime and Fraud Regulations. What must IT entrepreneurs do to comply?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Cybercrime Regulations:</strong> Laws that address hacking, identity theft, online fraud and financial crimes in the digital space.<br><br><strong>IT entrepreneurs must:</strong><ul><li>Ensure their systems are secured against unauthorized access</li><li>Comply with cybersecurity regulations</li><li>Implement proper access controls and encryption</li><li>Report data breaches promptly</li><li>Not participate in or facilitate cybercrime activities</li></ul>Failure to secure systems exposes the business to legal liability, financial loss and reputational damage.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q12 — Ethics</span>What is Business Ethics? State FIVE principles of Business Ethics in IT Entrepreneurship.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Business Ethics:</strong> The moral principles and standards that guide behaviours in business. In IT Entrepreneurship, ethics refers to the responsible use of technology, fair dealings with customers, protection of user data and transparency in digital transactions.<br><br><strong>Five Principles:</strong><ul><li><strong>Integrity</strong> — Being honest in all dealings</li><li><strong>Accountability</strong> — Taking responsibility for actions and decisions</li><li><strong>Transparency</strong> — Openness; void of secrecy in how the business operates</li><li><strong>Respect for Privacy</strong> — Protecting user data and not misusing personal information</li><li><strong>Social Responsibility</strong> — Contributing positively to society beyond making profit</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q13 — CSR</span>What is Corporate Social Responsibility (CSR)? Give two examples relevant to an IT company.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>CSR:</strong> A company's social obligation to contribute positively to society — going beyond core business activities to address social, environmental and community issues.<br><br><strong>Examples for IT companies:</strong><ul><li>A tech company donating computers and coding education to underprivileged schools</li><li>A startup using renewable energy for its data centres to reduce carbon footprint</li><li>An IT firm funding digital literacy programs in rural communities</li><li>A company implementing policies to reduce e-waste from its devices</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q14 — Product Dev</span>What is Product Development? List and explain the FOUR stages involved.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Product Development:</strong> The process of taking a product from the idea created to the market.<br><br><strong>Four Stages:</strong><ul><li><strong>Idea Generation</strong> — Generate as many ideas as possible through brainstorming, SWOT analysis and market research</li><li><strong>Idea Screening</strong> — Evaluate ideas for viability; done by experts in the field or yourself — filter out weak ideas</li><li><strong>Product Development</strong> — Build the product: design, prototype, write code, manufacture</li><li><strong>Testing and Validation</strong> — Verify the product meets user needs and works as intended before full launch</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q15 — MVP</span>What is a Minimum Viable Product (MVP)? List its three categories of testing.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>MVP:</strong> Bringing a small sample of a product to test assumptions and gather feedback and findings. It includes product testing and improvement — validating ideas with minimum effort before full development investment.<br><br><strong>Three Categories of Testing:</strong><ul><li><strong>User Testing</strong> — Testing with real target users to assess usability and satisfaction</li><li><strong>Beta Testing</strong> — Software testing where a nearly finished product is released to the community outside the development team to gather real-world feedback</li><li><strong>Performance Testing</strong> — Testing how the product performs under expected load, stress and speed conditions</li></ul><strong>Purpose of MVP:</strong> Reduce risk, gather early feedback, save development costs, validate market demand before full commitment.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q16 — UCD</span>What is User-Centred Design? List and explain its five steps.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>User-Centred Design (UCD):</strong> A design approach that focuses on attaining users' needs and experience throughout the development process.<br><br><strong>Five Steps:</strong><ul><li><strong>Empathize</strong> — Deeply understand the user's problems, needs and context</li><li><strong>Define</strong> — Clearly define the problem statement based on research findings</li><li><strong>Ideate</strong> — Generate multiple creative solution options</li><li><strong>Prototype</strong> — Build a basic model/mockup of the solution to test</li><li><strong>Execute / Test</strong> — Test the prototype with real users and gather feedback for improvement</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q17 — Product Innovation</span>Distinguish between Product Innovation and Product Development.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Product Innovation:</strong> A process of creating and introducing new and improved products in the market, OR improving already existing products. Focuses on what is new or better about the product.<br><br><strong>Product Development:</strong> The process of taking a product from the idea created to the market. Focuses on the execution process — stages from idea to launch.<br><br><strong>Key difference:</strong> Product Innovation is about the outcome (a new/better product). Product Development is about the process (how you get from idea to market). Innovation can occur without formal development processes; development always follows a structured path.</div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q18 — Business Plan</span>What is a Business Plan? List SIX components and explain THREE reasons for developing one.</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Business Plan:</strong> A written document that outlines the ideas, strategy and financial projections of a company — a roadmap for how the business will operate and grow.<br><br><strong>Six Components:</strong><ul><li>Company Description</li><li>Market Analysis</li><li>Product Description</li><li>Operational Plan</li><li>Management Structure</li><li>Finance/Financial Projections</li></ul><strong>Three Reasons:</strong><ul><li><strong>Attracts Investors</strong> — Demonstrates seriousness, potential and structured thinking to potential funders</li><li><strong>Secures a Bank Loan</strong> — Banks require a business plan before lending capital</li><li><strong>Guides Business Operations</strong> — Acts as a roadmap for decision-making and keeping the business on track</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q19 — Feasibility</span>Explain the FOUR types of feasibility analysis a new IT venture must conduct.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Market Feasibility</strong> — Is there a market for this product? Who are the customers? Is the market large enough to sustain a business?</li><li><strong>Technical Feasibility</strong> — Has to do with the technology aspect. Can the required technology actually be built, integrated or acquired with available resources?</li><li><strong>Financial Feasibility</strong> — Do we have enough capital? Can the business generate profit? What is the break-even point? Is the return on investment worthwhile?</li><li><strong>Legal Feasibility</strong> — Are there legal barriers? Can the business be legally registered and operated in the target market? Are there regulatory restrictions?</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q20 — Risks</span>State and explain FIVE risks associated with new ventures.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Financial Risk</strong> — Risk of running out of money: poor cash flow, unexpected costs, failure to generate revenue. The most common reason startups fail.</li><li><strong>Market Risk</strong> — Risk that the market won't respond: low demand, stiff competition, changing customer preferences.</li><li><strong>Operational Risk</strong> — Risk from internal processes: system failures, supply chain issues, staffing problems, poor management.</li><li><strong>Legal Risk</strong> — Risk of non-compliance: lawsuits, regulatory fines, intellectual property violations, contract disputes.</li><li><strong>Technological Risk</strong> — Risk from technology failure, rapid obsolescence, cybersecurity breaches or failure to adopt emerging technologies.</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q21 — Importance</span>State and explain FOUR reasons why entrepreneurship is important (exam topic).</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Brings about creation</strong> — Creates new businesses, new products and new industries that didn't exist before</li><li><strong>Economic Development</strong> — Generates revenue, taxes and economic activity that drives national development</li><li><strong>Brings about Innovation</strong> — Entrepreneurs drive technological advancement and find new ways to solve old problems</li><li><strong>Reduces Poverty</strong> — Creates employment opportunities and generates income for individuals and communities</li><li><strong>Attracts Investment</strong> — A thriving entrepreneurial ecosystem attracts local and foreign investors</li><li><strong>Guides Business Operations</strong> — Entrepreneurship thinking provides structure and direction for running sustainable organisations</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q22 — Avoid</span>What must IT entrepreneurs avoid in their business practices? Explain THREE unethical behaviours.</span><div class="q-icon"></div></div>
+      <div class="a"><ul><li><strong>Fake Reviews</strong> — Creating or paying for fabricated positive reviews deceives consumers and violates trust. It is unethical and may be illegal under consumer protection laws.</li><li><strong>Clickbait Advertising</strong> — Using sensational, exaggerated or misleading headlines to attract attention without delivering the promised content. Violates the principle of transparency.</li><li><strong>Software Piracy and Plagiarism</strong> — Using unlicensed software or copying code without permission. This violates intellectual property law (copyright) and is both a legal and ethical violation.</li><li><strong>Excessive/Illegal Data Collection</strong> — Collecting more user data than necessary or misusing customer information violates data protection laws and the principle of respect for privacy.</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q23 — Angel Investor</span>What is an Angel Investor? How do they differ from a bank loan?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Angel Investor:</strong> A wealthy individual who provides capital to start a business in exchange for ownership (equity) or convertible debt. They typically invest in early-stage startups. e.g. Bezos was an angel investor to Google.<br><br><strong>Angel Investor vs Bank Loan:</strong><table style="font-size:13px"><tr><th>Aspect</th><th>Angel Investor</th><th>Bank Loan</th></tr><tr><td>Repayment</td><td>No fixed repayment — investor takes equity</td><td>Must repay with interest</td></tr><tr><td>Ownership</td><td>You give up a share of the company</td><td>You keep full ownership</td></tr><tr><td>Risk to founder</td><td>Lose equity if company succeeds</td><td>Lose collateral if you can't repay</td></tr><tr><td>Additional value</td><td>Often brings mentorship and networks</td><td>No added business value</td></tr></table></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q24 — Beta Testing</span>What is Beta Testing? How does it differ from User Testing and Performance Testing?</span><div class="q-icon"></div></div>
+      <div class="a"><strong>Beta Testing:</strong> Software testing where a nearly finished product is released to the community outside the development team to gather real-world feedback before the final launch.<br><br><strong>Three MVP Testing Types Compared:</strong><ul><li><strong>User Testing</strong> — Controlled testing with selected target users to assess usability and satisfaction. Done INSIDE controlled environment.</li><li><strong>Beta Testing</strong> — Released to external community; real-world, uncontrolled. Reveals bugs and issues developers didn't anticipate. Done OUTSIDE the development team.</li><li><strong>Performance Testing</strong> — Tests how the system behaves under load, stress and speed conditions. Focuses on technical performance, not user experience.</li></ul></div>
+    </div>
+
+    <div class="qa" onclick="this.classList.toggle('open')">
+      <div class="q"><span><span class="qtag">Q25 — Summary</span>What is the relationship between: Creativity, Innovation, Entrepreneurship, Product Development, Business Plan, Legal Formation, and Market Expansion?</span><div class="q-icon"></div></div>
+      <div class="a">These concepts form a connected entrepreneurial lifecycle:<br><br><strong>Creativity</strong> generates ideas → <strong>Innovation</strong> turns ideas into viable solutions → <strong>Entrepreneurship</strong> organises resources and takes risks to build a venture around those solutions → <strong>Product Development</strong> translates the venture idea into a tangible product (through Idea Generation, Screening, Development, Testing) → The <strong>Business Plan</strong> documents the strategy, financial projections and operations → <strong>Legal Formation</strong> (CAC registration, IP protection, compliance) protects and legitimises the business → <strong>MVP and Testing</strong> validate the product in the market → <strong>Market Expansion (Stage IX)</strong> grows the validated product to new customers and markets.<br><br>Each stage feeds into the next — skipping one creates gaps that expose the business to avoidable risks.</div>
+    </div>
+
+  </div>
+</div>
+
+<p class="notice">ALL TOPICS COVERED FROM YOUR NOTES · 300L IT · GOOD LUCK!</p>
+
+</div>
+
+<script>
+document.querySelectorAll('.qa').forEach(q => {
+  q.setAttribute('tabindex','0');
+  q.addEventListener('keydown', e => {
+    if(e.key==='Enter'||e.key===' ') q.classList.toggle('open');
+  });
+});
+</script>
+</body>
+</html>
